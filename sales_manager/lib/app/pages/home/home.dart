@@ -4,6 +4,7 @@ import 'package:sales_manager/app/core/ui/base_state/base_state.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 import 'package:sales_manager/app/pages/home/home_controller.dart';
 import 'package:sales_manager/app/pages/home/home_state.dart';
+import 'package:sales_manager/app/pages/home/widgets/add_form.dart';
 import 'package:sales_manager/app/pages/home/widgets/home_card.dart';
 import 'package:sales_manager/app/pages/home/widgets/user_card.dart';
 
@@ -15,7 +16,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends BaseState<Home, HomeController> {
-
   @override
   void onReady() {
     controller.load();
@@ -66,46 +66,9 @@ class _HomeState extends BaseState<Home, HomeController> {
                            height: constraints.maxHeight * .08,
                         ),
                     
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    
-                          children: [
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'assets/images/Add-Venda.png',
-                                  height: 50,
-                                ),
-                    
-                                const SizedBox(
-                                  height: 11,
-                                ),
-                    
-                                Text(
-                                  'Adicionar Venda',
-                                  style: context.textApp.littleTextPrimary,
-                                ),
-                              ],
-                            ),
-                    
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'assets/images/Add-Pag.png',
-                                  height: 50,
-                                ),
-                    
-                                const SizedBox(
-                                  height: 11,
-                                ),
-                    
-                                Text(
-                                  'Adicionar Pagamento',
-                                  style: context.textApp.littleTextPrimary,
-                                ),
-                              ],
-                            ),
-                          ],
+                        AddForm(
+                          clients: state.clients ?? [],
+                          sales: state.sales ?? [],
                         ),
                     
                         SizedBox(

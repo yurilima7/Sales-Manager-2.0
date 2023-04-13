@@ -4,16 +4,16 @@ import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 import 'package:sales_manager/app/core/ui/widgets/client_card.dart';
 import 'package:sales_manager/app/models/client_model.dart';
 
-class Client extends StatefulWidget {
+class SelectClient extends StatefulWidget {
   final List<ClientModel> clients;
 
-  const Client({super.key, required this.clients});
+  const SelectClient({super.key, required this.clients});
 
   @override
-  State<Client> createState() => _ClientState();
+  State<SelectClient> createState() => _SelectClientState();
 }
 
-class _ClientState extends State<Client> {
+class _SelectClientState extends State<SelectClient> {
   @override
   Widget build(BuildContext context) {
     final clients = widget.clients;
@@ -24,7 +24,7 @@ class _ClientState extends State<Client> {
           'Clientes',
           style: context.textApp.appBarRegular,
         ),
-        
+
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
@@ -32,7 +32,7 @@ class _ClientState extends State<Client> {
           color: context.colors.tertiary,
         ),
       ),
-
+      
       body: Padding(
         padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 10,),
 
@@ -62,10 +62,10 @@ class _ClientState extends State<Client> {
                 itemCount: widget.clients.length,
                 itemBuilder: (_, i) => ClientCard(
                   client: clients.elementAt(i),
-                  function: () => Navigator.of(context).pushNamed(
-                    '/clientData',
-                    arguments: clients.elementAt(i),
-                  ),
+                  // function: () => Navigator.of(context).pushNamed(
+                  //   '/clientData',
+                  //   arguments: clients.elementAt(i),
+                  // ),
                 ),
               ),
             ],

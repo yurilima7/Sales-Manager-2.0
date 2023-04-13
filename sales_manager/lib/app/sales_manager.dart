@@ -6,6 +6,7 @@ import 'package:sales_manager/app/pages/auth/login/login_router.dart';
 import 'package:sales_manager/app/pages/auth/register/register_router.dart';
 import 'package:sales_manager/app/pages/client_data/cliente_data_router.dart';
 import 'package:sales_manager/app/pages/clients/client_router.dart';
+import 'package:sales_manager/app/pages/select_clients/select_client_router.dart';
 import 'package:sales_manager/app/pages/splash/splash.dart';
 import 'package:sales_manager/app/pages/home/home_router.dart';
 
@@ -31,6 +32,7 @@ class SalesManager extends StatelessWidget {
           '/home': (context) => HomeRouter.page,
           '/clients': (context) => ClientRouter.page,
           '/clientData': (context) => ClientDataRouter.page,
+          '/selectClient': (context) => SelectClientRouter.page,
         },
       ),
     );

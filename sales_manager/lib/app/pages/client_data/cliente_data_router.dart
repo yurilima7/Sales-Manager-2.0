@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sales_manager/app/core/rest_client/custom_dio.dart';
-import 'package:sales_manager/app/models/client_model.dart';
 import 'package:sales_manager/app/pages/client_data/client_data.dart';
 import 'package:sales_manager/app/pages/client_data/client_data_controller.dart';
 import 'package:sales_manager/app/repositories/clients/clients_repository.dart';

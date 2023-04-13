@@ -4,10 +4,12 @@ import 'package:sales_manager/app/models/client_model.dart';
 
 class ClientCard extends StatelessWidget {
   final ClientModel client;
+  final VoidCallback? function;
 
   const ClientCard({
     super.key,
     required this.client, 
+    this.function,
   });
 
   @override
@@ -17,10 +19,7 @@ class ClientCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 5.0),
 
         child: ListTile(
-          onTap: () => Navigator.of(context).pushNamed(
-            '/clientData',
-            arguments: client,
-          ),
+          onTap: function,
 
           title: Text(
             client.name,
