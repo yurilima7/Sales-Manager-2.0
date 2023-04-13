@@ -35,11 +35,6 @@ class ClientDataRouter {
         ),
       ],
 
-      builder: (context, child) {
-          final args = ModalRoute.of(context)!.settings.arguments 
-                    as ClientModel;
-
-          return ClientData(client: args);
-        },   
+      child: const ClientData(),  
   );
 }

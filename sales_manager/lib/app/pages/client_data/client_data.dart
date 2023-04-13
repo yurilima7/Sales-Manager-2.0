@@ -10,18 +10,26 @@ import 'package:sales_manager/app/pages/client_data/client_data_controller.dart'
 import 'package:sales_manager/app/pages/client_data/client_data_state.dart';
 
 class ClientData extends StatefulWidget {
-  final ClientModel client;
-  const ClientData({super.key, required this.client});
+  const ClientData({super.key});
 
   @override
   State<ClientData> createState() => _ClientDataState();
 }
 
 class _ClientDataState extends BaseState<ClientData, ClientDataController> {
+  ClientModel? client;
+  bool isLoading = true;
+  
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    client = ModalRoute.of(context)!.settings.arguments 
+                    as ClientModel;
+  }
 
   @override
   void onReady() {
-    controller.load(widget.client.id);
+    controller.load(client!.id);
     super.onReady();
   }
 
@@ -30,7 +38,7 @@ class _ClientDataState extends BaseState<ClientData, ClientDataController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.client.name,
+          client!.name,
           style: context.textApp.appBarRegular,
         ),
         
@@ -56,9 +64,13 @@ class _ClientDataState extends BaseState<ClientData, ClientDataController> {
       body: BlocConsumer<ClientDataController, ClientDataState>(
         listener: (context, state) {
           state.status.matchAny(
-            any: () => hideLoader(),
+            any: () {
+              isLoading = false;
+              hideLoader();
+            },
             loading: () => showLoader(),
             error: () {
+              isLoading = false;
               hideLoader();
               showErro(state.errorMessage ?? 'Erro não informado');
             },
@@ -97,10 +109,10 @@ class _ClientDataState extends BaseState<ClientData, ClientDataController> {
                     
                   DataCard(
                     data: [
-                      'Telefone: ${widget.client.phone}',
-                      'Bairro ${widget.client.district}',
-                      'Rua: ${widget.client.street}',
-                      'N°: ${widget.client.number}',
+                      'Telefone: ${client!.phone}',
+                      'Bairro ${client!.district}',
+                      'Rua: ${client!.street}',
+                      'N°: ${client!.number}',
                     ],
                     isUpdateIcon: true,
                   ),
@@ -123,14 +135,18 @@ class _ClientDataState extends BaseState<ClientData, ClientDataController> {
                   Visibility(
                     visible: state.sales!.isNotEmpty,
 
-                    replacement: Center(
-                      child: Text(
-                          'Não existem compras realizadas',
-                          style: context.textApp.primarySemiBold.copyWith(
-                            color: context.colors.tertiary,
+                    replacement: !isLoading ? SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.5,
+
+                      child: Center(
+                        child: Text(
+                            'Não existem compras realizadas',
+                            style: context.textApp.primarySemiBold.copyWith(
+                              color: context.colors.tertiary,
+                            ),
                           ),
-                        ),
-                    ),
+                      ),
+                    ) : const SizedBox.shrink(),
                     
                     child: ListView.builder(
                       shrinkWrap: true,
