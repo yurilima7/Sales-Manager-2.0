@@ -1,0 +1,115 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Teste Valdo",
+            "email": "teste@gmail.com",
+            "password": "12341234",
+            "total_vendido": 200.0,
+            "recebido": 0.0,
+            "receber": 200.0
+        },
+        {
+            "id": 2,
+            "name": "Yuri",
+            "email": "yuri@teste.com",
+            "password": "12341234",
+            "total_vendido": 50.0,
+            "recebido": 0.0,
+            "receber": 50.0
+        },
+        {
+            "id": 3,
+            "name": "Bob",
+            "email": "bobteste@gmail.com",
+            "password": "12345678",
+            "total_vendido": 0.0,
+            "recebido": 0.0,
+            "receber": 0.0
+        }
+    ],
+    "client": [
+        {
+            "id": 1,
+            "name": "Laura",
+            "last_name": "Bezerra",
+            "phone": "(99) 99901-2345",
+            "district": "Teso Duro",
+            "street": "Rua da Ladeira",
+            "number": 23,
+            "due": 150.00,
+            "user_id": "1"
+        },
+        {
+            "id": 2,
+            "name": "Mauro",
+            "last_name": "César",
+            "phone": "(99) 98201-6734",
+            "district": "Teso Duro",
+            "street": "Rua da Ladeira",
+            "number": 234,
+            "due": 50.00,
+            "user_id": "2"
+        },
+        {
+            "id": 3,
+            "name": "Luana",
+            "last_name": "Beatriz Santos",
+            "phone": "(99) 99974-9348",
+            "district": "Eugênio Coutinho",
+            "street": "Rua 10, QD-18",
+            "number": 20,
+            "due": 50.00,
+            "user_id": "1"
+        },
+        {
+            "id": 4,
+            "name": "Carla",
+            "last_name": "Lacerda",
+            "phone": "(99) 99101-3455",
+            "district": "Eugênio Coutinho",
+            "street": "Rua 22",
+            "number": 12,
+            "due": 0.00,
+            "user_id": "2"
+        }
+    ],
+    "sale": [
+        {
+            "id": 1,
+            "product_name": "Short F",
+            "price": 50.0,
+            "quantity": 2,
+            "day": "22/03/2023",
+            "total": 100.0,
+            "client_id": "1"
+        },
+        {
+            "id": 2,
+            "product_name": "Camisa M",
+            "price": 25.0,
+            "quantity": 2,
+            "day": "22/03/2023",
+            "total": 50.0,
+            "client_id": "2"
+        },
+        {
+            "id": 3,
+            "product_name": "Short F",
+            "price": 25.0,
+            "quantity": 2,
+            "day": "22/03/2023",
+            "total": 50.0,
+            "client_id": "1"
+        },
+        {
+            "id": 4,
+            "product_name": "Camisa M",
+            "price": 50.0,
+            "quantity": 1,
+            "day": "22/03/2023",
+            "total": 50.0,
+            "client_id": "3"
+        }
+    ]
+}

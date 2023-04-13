@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+import 'package:sales_manager/app/core/ui/styles/text_app.dart';
+import 'package:sales_manager/app/models/client_model.dart';
+
+class ClientCard extends StatelessWidget {
+  final ClientModel client;
+
+  const ClientCard({
+    super.key,
+    required this.client, 
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 5.0),
+
+        child: ListTile(
+          onTap: () => Navigator.of(context).pushNamed(
+            '/clientData',
+            arguments: client,
+          ),
+
+          title: Text(
+            client.name,
+            style: context.textApp.primaryRegular,
+          ),
+
+          subtitle: Column(
+            children: [
+              const SizedBox(height: 16),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                
+                children: [
+                  Text(
+                    'Saldo Devedor',
+                    style: context.textApp.primaryRegular,
+                  ),
+
+                  Text(
+                    client.due.toString(),
+                    style: context.textApp.primarySemiBold,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
