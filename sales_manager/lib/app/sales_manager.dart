@@ -32,7 +32,7 @@ class SalesManager extends StatelessWidget {
           '/home': (context) => HomeRouter.page,
           '/clients': (context) => ClientRouter.page,
           '/clientData': (context) => ClientDataRouter.page,
-          '/payment': (context) => SelectToPaymentRouter.page,
+          '/selPayment': (context) => SelectToPaymentRouter.page,
         },
       ),
     );

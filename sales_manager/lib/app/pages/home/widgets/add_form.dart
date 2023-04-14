@@ -50,7 +50,7 @@ class AddForm extends StatelessWidget {
                             '/clients',
                             arguments: {
                               'clients': clients,
-                              'route': '/payment',
+                              'route': '/selPayment',
                             },
                           );
                         },
