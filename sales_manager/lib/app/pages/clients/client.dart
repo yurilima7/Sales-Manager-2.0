@@ -6,8 +6,13 @@ import 'package:sales_manager/app/models/client_model.dart';
 
 class Client extends StatefulWidget {
   final List<ClientModel> clients;
+  final String route;
 
-  const Client({super.key, required this.clients});
+  const Client({
+    super.key,
+    required this.clients,
+    required this.route,
+  });
 
   @override
   State<Client> createState() => _ClientState();
@@ -63,7 +68,7 @@ class _ClientState extends State<Client> {
                 itemBuilder: (_, i) => ClientCard(
                   client: clients.elementAt(i),
                   function: () => Navigator.of(context).pushNamed(
-                    '/clientData',
+                    widget.route,
                     arguments: clients.elementAt(i),
                   ),
                 ),

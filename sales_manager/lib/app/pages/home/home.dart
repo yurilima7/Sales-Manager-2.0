@@ -80,7 +80,10 @@ class _HomeState extends BaseState<Home, HomeController> {
                           subtitle: state.clients?.length.toString() ?? '',
                           function: () => Navigator.of(context).pushNamed(
                             '/clients',
-                            arguments: state.clients,
+                            arguments: {
+                              'clients': state.clients,
+                              'route': '/clientData',
+                            },
                           ),
                         ),
                     

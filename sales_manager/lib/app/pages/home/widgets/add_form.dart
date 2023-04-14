@@ -47,8 +47,11 @@ class AddForm extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                           Navigator.of(context).pushNamed(
-                            '/selectClient',
-                            arguments: clients,
+                            '/clients',
+                            arguments: {
+                              'clients': clients,
+                              'route': '/payment',
+                            },
                           );
                         },
 

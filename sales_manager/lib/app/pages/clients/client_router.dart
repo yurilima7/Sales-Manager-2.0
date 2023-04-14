@@ -15,9 +15,12 @@ class ClientRouter {
 
          builder: (context, child) {
           final args = ModalRoute.of(context)!.settings.arguments 
-                    as List<ClientModel>;
+                    as Map<String, dynamic>;
 
-          return Client(clients: args,);
+          return Client(
+            clients: args['clients'] as List<ClientModel>,
+            route: args['route'] as String,
+          );
         },   
       );
 }
