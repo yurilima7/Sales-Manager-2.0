@@ -25,4 +25,41 @@ class UserRepositoryImpl implements UserRepository {
       throw RepositoryException(message: 'Erro ao buscar usuário');
     }
   }
+
+    
+  @override
+  Future<void> deleteUser(int id) async {
+    try {
+      await dio.auth().delete('/users/$id');
+    } on DioError catch (e, s) {
+      log('Erro ao deletar usuário', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro ao deletar usuário');
+    }
+  }
+  
+  @override
+  Future<void> updateUser(int id, String name) async {
+    try {
+      await dio.auth().patch('/users/$id', data: {
+        "name": name,
+      });
+    } on DioError catch (e, s) {
+      log('Erro ao atualizar nome de usuário', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro ao atualizar nome de usuário');
+    }
+  }
+  
+  @override
+  Future<void> updateValuesUser(int id, double recebido, double receber, double totalVendido) async {
+    try {
+      await dio.auth().patch('/users/$id', data: {
+        "total_vendido": totalVendido,
+        "recebido": recebido,
+        "receber": receber,
+      });
+    } on DioError catch (e, s) {
+      log('Erro ao atualizar valores do usuário', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro ao atualizar valores do usuário');
+    }
+  }
 }

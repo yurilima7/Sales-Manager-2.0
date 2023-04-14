@@ -52,11 +52,46 @@ class SalesRepositoryImpl implements SalesRepository {
   @override
   Future<void> deletePurchaseClient(int id) async {
     try {
-      await dio.auth().delete("/sale?id=$id");
+      await dio.auth().delete("/sale/$id");
 
     } on DioError catch (e, s) {
       log('Erro ao deletar compras do cliente', error: e, stackTrace: s);
       throw RepositoryException(message: 'Erro ao deletar compras do cliente');
+    }
+  }
+  
+  @override
+  Future<void> addSale(int id, String productName, String day, int quantity, double price, double total, String clientId) async {
+    try {
+      await dio.auth().post("/sale", data: {
+        "product_name": productName,
+        "price": price,
+        "quantity": quantity,
+        "day": day,
+        "total": total,
+        "client_id": clientId,
+      });
+
+    } on DioError catch (e, s) {
+      log('Erro ao adicionar compra do cliente', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro ao adicionar compra do cliente');
+    }
+  }
+  
+  @override
+  Future<void> updateSale(int id, String productName, String day, int quantity, double price, double total) async {
+    try {
+      await dio.auth().put("/sale/$id", data: {
+        "product_name": productName,
+        "price": price,
+        "quantity": quantity,
+        "day": day,
+        "total": total,
+      });
+
+    } on DioError catch (e, s) {
+      log('Erro no update de compra do cliente', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro no update de compra do cliente');
     }
   }
 }

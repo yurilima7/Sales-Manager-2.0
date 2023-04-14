@@ -51,4 +51,16 @@ class AuthRepositoryImpl implements AuthRepository {
       throw RepositoryException(message: 'Erro ao registrar usuário');
     }
   }
+  
+  @override
+  Future<void> updatePassword(int id, String password) async {
+   try {
+      await dio.auth().patch('/users/$id', data: {
+        "password": password,
+      });
+    } on DioError catch (e, s) {
+      log('Erro ao atualizar senha do usuário', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro ao atualizar senha do usuário');
+    }
+  }
 }

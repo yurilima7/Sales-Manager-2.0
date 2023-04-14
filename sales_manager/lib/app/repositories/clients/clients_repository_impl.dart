@@ -25,4 +25,19 @@ class ClientsRepositoryImpl implements ClientsRepository {
       throw RepositoryException(message: 'Erro ao buscar clientes');
     }
   }
+  
+  @override
+  Future<void> addClient(int name, String phone, String district, String street, int number, double due, String userId) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> deleteClient(int id) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> updateClient(int name, String phone, String district, String street, int number, double due) {
+    throw UnimplementedError();
+  }
 }
