@@ -4,10 +4,11 @@ import 'package:sales_manager/app/models/sale_model.dart';
 
 class SaleCard extends StatelessWidget {
   final SaleModel sale;
+  final VoidCallback? onPressed;
 
   const SaleCard({
     super.key,
-    required this.sale,
+    required this.sale, this.onPressed,
   });
 
   @override
@@ -17,7 +18,7 @@ class SaleCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 5.0),
 
         child: ListTile(
-          onTap: () {},
+          onTap: onPressed,
 
           title: Text(
             sale.productName,

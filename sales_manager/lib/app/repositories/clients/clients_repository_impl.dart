@@ -40,4 +40,18 @@ class ClientsRepositoryImpl implements ClientsRepository {
   Future<void> updateClient(int name, String phone, String district, String street, int number, double due) {
     throw UnimplementedError();
   }
+  
+  @override
+  Future<void> updateDue(String id, double due) async {
+    try {
+      await dio.auth().patch("/client/$id", data: {
+        "due": due,
+      });
+
+    } on DioError catch (e, s) {
+      log('Erro ao atualizar divida do cliente', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro ao atualizar divida do cliente');
+    }
+  }
+  
 }

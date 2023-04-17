@@ -46,13 +46,7 @@ class AddForm extends StatelessWidget {
                       TextButton(
                         onPressed: () {
                           Navigator.pop(context);
-                          Navigator.of(context).pushNamed(
-                            '/clients',
-                            arguments: {
-                              'clients': clients,
-                              'route': '/selPayment',
-                            },
-                          );
+                          
                         },
 
                         child: Text(
@@ -96,7 +90,13 @@ class AddForm extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                
+                Navigator.of(context).pushNamed(
+                  '/clients',
+                  arguments: {
+                    'clients': clients,
+                    'route': '/selPayment',
+                  },
+                );
               },
               child: Image.asset(
                 'assets/images/Add-Pag.png',

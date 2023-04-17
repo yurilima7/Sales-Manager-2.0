@@ -55,8 +55,8 @@ class SalesRepositoryImpl implements SalesRepository {
       await dio.auth().delete("/sale/$id");
 
     } on DioError catch (e, s) {
-      log('Erro ao deletar compras do cliente', error: e, stackTrace: s);
-      throw RepositoryException(message: 'Erro ao deletar compras do cliente');
+      log('Erro ao deletar compra do cliente', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro ao deletar compra do cliente');
     }
   }
   
@@ -92,6 +92,19 @@ class SalesRepositoryImpl implements SalesRepository {
     } on DioError catch (e, s) {
       log('Erro no update de compra do cliente', error: e, stackTrace: s);
       throw RepositoryException(message: 'Erro no update de compra do cliente');
+    }
+  }
+  
+  @override
+  Future<void> paymentSale(int id, double total) async {
+    try {
+      await dio.auth().patch("/sale/$id", data: {
+        "total": total,
+      });
+
+    } on DioError catch (e, s) {
+      log('Erro no pagamento do cliente', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro no pagamento do cliente');
     }
   }
 }

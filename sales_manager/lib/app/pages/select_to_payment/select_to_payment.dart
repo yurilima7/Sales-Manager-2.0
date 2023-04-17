@@ -115,6 +115,13 @@ class _SelectToPaymentState
                   itemCount: state.sales!.length,
                   itemBuilder: (_, i) => SaleCard(
                     sale: state.sales!.elementAt(i),
+                    onPressed: () => Navigator.of(context).pushNamed(
+                      '/payment',
+                      arguments: {
+                        'client': client,
+                        'sale': state.sales!.elementAt(i),
+                      },
+                    ),
                   ),
                 ),
               ),
