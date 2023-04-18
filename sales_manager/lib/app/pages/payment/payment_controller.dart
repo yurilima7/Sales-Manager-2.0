@@ -17,6 +17,25 @@ class PaymentController extends Cubit<PaymentState> {
     this._clientsRepository,
   ) : super(const PaymentState.initial());
 
+  Future<void> load() async {
+    emit(state.copyWith(status: PaymentStatus.loading));
+
+    try {
+      final user = await _userRepository.loadUser();
+
+      emit(state.copyWith(
+        status: PaymentStatus.loaded,
+        user: user,
+      ));
+    } catch (e, s) {
+      log('Erro ao buscar usuário', error: e, stackTrace: s);
+      emit(state.copyWith(
+        status: PaymentStatus.error,
+        errorMessage: 'Erro ao buscar usuário',
+      ));
+    }
+  }
+
   Future<void> payment(
     int idSale,
     int idClient,
@@ -28,7 +47,7 @@ class PaymentController extends Cubit<PaymentState> {
     double receber,
     double totalVendido,
   ) async {
-    emit(state.copyWith(status: PaymentStatus.loading));
+    emit(state.copyWith(status: PaymentStatus.paying));
 
     try {
       if (valuePayment == total) {
@@ -62,7 +81,7 @@ class PaymentController extends Cubit<PaymentState> {
         );
       }
 
-      emit(state.copyWith(status: PaymentStatus.loaded));
+      emit(state.copyWith(status: PaymentStatus.paid));
 
     } catch (e, s) {
       log('Erro ao realizar o pagamento do cliente', error: e, stackTrace: s);

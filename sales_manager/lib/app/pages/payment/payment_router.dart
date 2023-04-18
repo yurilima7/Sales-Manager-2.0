@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sales_manager/app/core/rest_client/custom_dio.dart';
-import 'package:sales_manager/app/models/client_model.dart';
-import 'package:sales_manager/app/models/sale_model.dart';
 import 'package:sales_manager/app/pages/payment/payment.dart';
 import 'package:sales_manager/app/pages/payment/payment_controller.dart';
 import 'package:sales_manager/app/repositories/clients/clients_repository.dart';
@@ -45,14 +43,6 @@ class PaymentRouter {
         ),
         ],
 
-        builder: (context, child) {
-          final args = ModalRoute.of(context)!.settings.arguments 
-                    as Map<String, dynamic>;
-
-          return Payment(
-            client: args['client'] as ClientModel,
-            sale: args['sale'] as SaleModel,
-          );
-        }
+        child: const Payment(),
       );
 }

@@ -11,6 +11,8 @@ extension PaymentStatusMatch on PaymentStatus {
       {required T Function() initial,
       required T Function() loading,
       required T Function() loaded,
+      required T Function() paying,
+      required T Function() paid,
       required T Function() error}) {
     final v = this;
     if (v == PaymentStatus.initial) {
@@ -25,6 +27,14 @@ extension PaymentStatusMatch on PaymentStatus {
       return loaded();
     }
 
+    if (v == PaymentStatus.paying) {
+      return paying();
+    }
+
+    if (v == PaymentStatus.paid) {
+      return paid();
+    }
+
     if (v == PaymentStatus.error) {
       return error();
     }
@@ -37,6 +47,8 @@ extension PaymentStatusMatch on PaymentStatus {
       T Function()? initial,
       T Function()? loading,
       T Function()? loaded,
+      T Function()? paying,
+      T Function()? paid,
       T Function()? error}) {
     final v = this;
     if (v == PaymentStatus.initial && initial != null) {
@@ -49,6 +61,14 @@ extension PaymentStatusMatch on PaymentStatus {
 
     if (v == PaymentStatus.loaded && loaded != null) {
       return loaded();
+    }
+
+    if (v == PaymentStatus.paying && paying != null) {
+      return paying();
+    }
+
+    if (v == PaymentStatus.paid && paid != null) {
+      return paid();
     }
 
     if (v == PaymentStatus.error && error != null) {

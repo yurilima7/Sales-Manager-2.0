@@ -10,15 +10,12 @@ import 'package:sales_manager/app/models/client_model.dart';
 import 'package:sales_manager/app/models/sale_model.dart';
 import 'package:sales_manager/app/pages/payment/payment_controller.dart';
 import 'package:sales_manager/app/pages/payment/payment_state.dart';
+import 'package:validatorless/validatorless.dart';
 
 class Payment extends StatefulWidget {
-  final ClientModel client;
-  final SaleModel sale;
 
   const Payment({
     Key? key,
-    required this.client,
-    required this.sale,
   }) : super(key: key);
 
   @override
@@ -26,9 +23,28 @@ class Payment extends StatefulWidget {
 }
 
 class _PaymentState extends BaseState<Payment, PaymentController> {
-  final paymentEC = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-// #userAuthRef
+  final _paymentEC = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  ClientModel? client;
+  SaleModel? sale;
+  
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)!.settings.arguments 
+                    as Map<String, dynamic>;
+
+    client = args['client'] as ClientModel;
+    sale = args['sale'] as SaleModel;
+  }
+
+  @override
+  void onReady() {
+    controller.load();
+    super.onReady();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +68,15 @@ class _PaymentState extends BaseState<Payment, PaymentController> {
             any: () {
               hideLoader();
             },
+            paying: () => showLoader(),
             loading: () => showLoader(),
+            paid: () {
+              hideLoader();
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/home',
+                (route) => false,
+              );
+            },
             error: () {
               hideLoader();
               showErro(state.errorMessage ?? 'Erro não informado');
@@ -76,7 +100,7 @@ class _PaymentState extends BaseState<Payment, PaymentController> {
                     ),
 
                     Text(
-                      widget.sale.productName,
+                      sale!.productName,
                       style: context.textApp.primarySemiBold.copyWith(
                         color: context.colors.tertiary,
                       ),
@@ -87,21 +111,29 @@ class _PaymentState extends BaseState<Payment, PaymentController> {
                     ),
 
                     DataCard(data: [
-                      'Compra: ${widget.sale.day}',
-                      'Quantidade: ${widget.sale.quantity}',
-                      'Unidade: ${widget.sale.price}',
-                      'Total: ${widget.sale.total}',
+                      'Compra: ${sale!.day}',
+                      'Quantidade: ${sale!.quantity}',
+                      'Unidade: ${sale!.price}',
+                      'Total: ${sale!.total}',
                     ]),
                   ],
                 ),
 
                 Form(
-                  key: formKey,
+                  key: _formKey,
                   child: Column(
                     children: [
                       Input(label: 'Digite o valor',
                         hintText: 'Ex: 12,00',
-                        controller: paymentEC,
+                        controller: _paymentEC,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Valor obrigatório'),
+                          Validatorless.numbersBetweenInterval(
+                            0.01,
+                            sale!.total,
+                            'Valor não corresponde ao intervalo de 0,01 e ${sale!.total}',
+                          ),
+                        ]),
                       ),
                 
                       const SizedBox(
@@ -111,17 +143,22 @@ class _PaymentState extends BaseState<Payment, PaymentController> {
                       SalesManagerButton(
                         label: 'Pagar',
                         onPressed: () {
-                          controller.payment(
-                            widget.sale.id,
-                            widget.client.id,
-                            1,
-                            double.tryParse(paymentEC.text) ?? 0.0,
-                            widget.sale.total,
-                            widget.client.due,
-                            0,
-                            200,
-                            200,
-                          );
+                          final valid =
+                              _formKey.currentState?.validate() ?? false;
+                          
+                          if (valid && (state.user != null ? true : false)) {
+                            controller.payment(
+                              sale!.id,
+                              client!.id,
+                              state.user!.id,
+                              double.tryParse(_paymentEC.text) ?? 0.0,
+                              sale!.total,
+                              client!.due,
+                              state.user!.recebido ,
+                              state.user!.receber,
+                              state.user!.totalVendido,
+                            );
+                          }
                         },
                       ),
                     ],
