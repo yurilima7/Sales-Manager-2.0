@@ -27,8 +27,22 @@ class ClientsRepositoryImpl implements ClientsRepository {
   }
   
   @override
-  Future<void> addClient(int name, String phone, String district, String street, int number, double due, String userId) {
-    throw UnimplementedError();
+  Future<void> addClient(String name, String phone, String district, String street, int number, double due, String userId) async {
+    try {
+      await dio.auth().post("/client", data: {
+        "name": name,
+        "phone": phone,
+        "district": district,
+        "street": street,
+        "number": number,
+        "due": due,
+        "user_id": userId,
+      });
+
+    } on DioError catch (e, s) {
+      log('Erro ao inserir cliente', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro ao inserir cliente');
+    }
   }
   
   @override
@@ -37,7 +51,7 @@ class ClientsRepositoryImpl implements ClientsRepository {
   }
   
   @override
-  Future<void> updateClient(int name, String phone, String district, String street, int number, double due) {
+  Future<void> updateClient(String name, String phone, String district, String street, int number, double due) {
     throw UnimplementedError();
   }
   

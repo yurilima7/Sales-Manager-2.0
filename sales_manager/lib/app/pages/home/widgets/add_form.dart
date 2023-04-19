@@ -1,6 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:sales_manager/app/core/ui/styles/colors_app.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 import 'package:sales_manager/app/models/client_model.dart';
 import 'package:sales_manager/app/models/sale_model.dart';
@@ -24,50 +22,15 @@ class AddForm extends StatelessWidget {
         Column(
           children: [
             InkWell(
-              onTap: () => showModalBottomSheet<void>(
-                context: context,
-                builder: (_) => Container(
-                  color: context.colors.primary,
-                  height: 150,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10),
-
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional.topStart,
-                        child: Text(
-                          'Clique na opção desejada',
-                          style: context.textApp.textPrimaryLight,
-                        ),
-                      ),
-
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          
-                        },
-
-                        child: Text(
-                          'Cliente existente',
-                          style:
-                              context.textApp.textPrimaryLight,
-                        ),
-                      ),
-
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Novo cliente',
-                          style:
-                              context.textApp.textPrimaryLight,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  '/clients',
+                  arguments: {
+                    'clients': clients,
+                    'route': '/registerSale',
+                  },
+                );
+              },
 
               child: Image.asset(
                 'assets/images/Add-Venda.png',
@@ -89,6 +52,27 @@ class AddForm extends StatelessWidget {
         Column(
           children: [
             InkWell(
+              onTap: () => Navigator.of(context).pushNamed('/addClient'),
+              child: Image.asset(
+                'assets/images/AddClient.png',
+                height: 50,
+              ),
+            ),
+
+            const SizedBox(
+              height: 11,
+            ),
+
+            Text(
+              'Adicionar Cliente',
+              style: context.textApp.littleTextPrimary,
+            ),
+          ],
+        ),
+
+        Column(
+          children: [
+            InkWell(
               onTap: () {
                 Navigator.of(context).pushNamed(
                   '/clients',
@@ -98,6 +82,7 @@ class AddForm extends StatelessWidget {
                   },
                 );
               },
+
               child: Image.asset(
                 'assets/images/Add-Pag.png',
                 height: 50,

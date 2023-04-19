@@ -8,6 +8,6 @@ abstract class SalesRepository {
   Future<void> updateSale(int id, String productName, String day, int quantity,
       double price, double total);
   Future<void> paymentSale(int id, double total);
-  Future<void> addSale(int id, String productName, String day, int quantity,
+  Future<void> addSale(String productName, String day, int quantity,
       double price, double total, String clientId);
 }

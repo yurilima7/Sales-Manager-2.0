@@ -83,6 +83,7 @@ flutter:
       - assets\images\Add-Venda.png
       - assets\images\Add-Pag.png
       - assets\images\Delete.png
+      - assets\images\AddClient.png
       - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:sales_manager/app/core/global/global_context.dart';
 import 'package:sales_manager/app/core/provider/application_binding.dart';
 import 'package:sales_manager/app/core/ui/theme/theme_settings.dart';
+import 'package:sales_manager/app/pages/add_client/add_address_router.dart';
+import 'package:sales_manager/app/pages/add_client/add_client_router.dart';
 import 'package:sales_manager/app/pages/auth/login/login_router.dart';
 import 'package:sales_manager/app/pages/auth/register/register_router.dart';
 import 'package:sales_manager/app/pages/client_data/client_data_router.dart';
 import 'package:sales_manager/app/pages/clients/client_router.dart';
 import 'package:sales_manager/app/pages/payment/payment_router.dart';
+import 'package:sales_manager/app/pages/register_sale/register_sale_router.dart';
 import 'package:sales_manager/app/pages/select_to_payment/select_to_payment_router.dart';
 import 'package:sales_manager/app/pages/splash/splash.dart';
 import 'package:sales_manager/app/pages/home/home_router.dart';
@@ -35,6 +38,9 @@ class SalesManager extends StatelessWidget {
           '/clientData': (context) => ClientDataRouter.page,
           '/selPayment': (context) => SelectToPaymentRouter.page,
           '/payment': (context) => PaymentRouter.page,
+          '/addClient': (context) => AddClientRouter.page,
+          '/addAddress': (context) => AddAddressRouter.page,
+          '/registerSale': (context) => RegisterSaleRouter.page,
         },
       ),
     );
