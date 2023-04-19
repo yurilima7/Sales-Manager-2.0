@@ -11,6 +11,8 @@ class Input extends StatelessWidget {
   final ValueNotifier<bool> obscureTextVN;
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
+  final String? initialValue;
+  final Function(String?)? onSaved;
 
   Input({
     super.key,
@@ -21,6 +23,8 @@ class Input extends StatelessWidget {
     this.obscureText = false,
     this.controller,
     this.validator,
+    this.initialValue,
+    this.onSaved,
   }) : obscureTextVN = ValueNotifier(obscureText);
 
   @override
@@ -33,6 +37,8 @@ class Input extends StatelessWidget {
           controller: controller,
           obscureText: obscureTextValue,
           validator: validator,
+          initialValue: initialValue,
+          onSaved: onSaved,
         
           style: context.textApp.textPrimary,
         

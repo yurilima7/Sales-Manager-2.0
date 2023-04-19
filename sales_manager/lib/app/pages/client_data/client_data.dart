@@ -154,6 +154,13 @@ class _ClientDataState extends BaseState<ClientData, ClientDataController> {
                       itemCount: state.sales!.length,
                       itemBuilder: (_, i) => SaleCard(
                         sale: state.sales!.elementAt(i),
+                          onPressed: () => Navigator.of(context).pushNamed(
+                            '/productData',
+                            arguments: {
+                              'client': client,
+                              'sale': state.sales!.elementAt(i),
+                            }
+                          ),
                       ),
                     ),
                   ),

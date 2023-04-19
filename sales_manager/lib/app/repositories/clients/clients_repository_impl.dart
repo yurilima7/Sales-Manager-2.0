@@ -46,13 +46,31 @@ class ClientsRepositoryImpl implements ClientsRepository {
   }
   
   @override
-  Future<void> deleteClient(int id) {
-    throw UnimplementedError();
+  Future<void> deleteClient(int id) async {
+    try {
+      await dio.auth().delete('/client/$id');
+    } on DioError catch (e, s) {
+      log('Erro ao deletar cliente', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro ao deletar cliente');
+    }
   }
   
   @override
-  Future<void> updateClient(String name, String phone, String district, String street, int number, double due) {
-    throw UnimplementedError();
+  Future<void> updateClient(String id, String name, String phone, String district, String street, int number, double due) async {
+     try {
+      await dio.auth().put('/client/$id', data: {
+        "name": name,
+        "phone": phone,
+        "district": district,
+        "street": street,
+        "number": number,
+        "due": due,
+        "user_id": #userAuthRef
+      });
+    } on DioError catch (e, s) {
+      log('Erro ao atualizar dados do cliente', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro ao atualizar dados do cliente');
+    }
   }
   
   @override

@@ -94,6 +94,10 @@ class _HomeState extends BaseState<Home, HomeController> {
                         HomeCard(
                           title: 'Vendas',
                           subtitle: state.sales?.length.toString() ?? '',
+                          function: () => Navigator.of(context).pushNamed(
+                            '/sales',
+                            arguments: state.sales
+                          ),
                         ),
                       ],
                     ),
