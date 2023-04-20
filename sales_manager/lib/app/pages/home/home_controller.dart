@@ -22,8 +22,8 @@ class HomeController extends Cubit<HomeState> {
 
     try {
       final user = await _userRepository.loadUser();
-      final clients = await _clientsRepository.loadClients();
-      final sales = await _salesRepository.loadSales();
+      final clients = await _clientsRepository.loadClients(user.id.toString());
+      final sales = await _salesRepository.loadSales(user.id.toString());
 
       emit(state.copyWith(
         status: HomeStatus.loaded,

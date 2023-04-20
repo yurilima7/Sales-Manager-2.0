@@ -15,9 +15,9 @@ class SalesRepositoryImpl implements SalesRepository {
   });
 
   @override
-  Future<List<SaleModel>> loadSales() async {
+  Future<List<SaleModel>> loadSales(String id) async {
     try {
-      final result = await dio.auth().get("/sale");
+      final result = await dio.auth().get("/sale?user_id=$id");
 
       return result.data.map<SaleModel>((s) => SaleModel.fromMap(s)).toList();
     } on DioError catch (e, s) {

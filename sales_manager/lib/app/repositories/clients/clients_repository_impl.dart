@@ -13,9 +13,9 @@ class ClientsRepositoryImpl implements ClientsRepository {
   ClientsRepositoryImpl({required this.dio});
 
   @override
-  Future<List<ClientModel>> loadClients() async {
+  Future<List<ClientModel>> loadClients(String id) async {
     try {
-      final result = await dio.auth().get("/client");
+      final result = await dio.auth().get("/client?user_id=$id");
 
       return result.data
           .map<ClientModel>((c) => ClientModel.fromMap(c))
