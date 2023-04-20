@@ -115,6 +115,10 @@ class _ClientDataState extends BaseState<ClientData, ClientDataController> {
                       'N°: ${client!.number}',
                     ],
                     isUpdateIcon: true,
+                      onPressed: () => Navigator.of(context).pushNamed(
+                        '/updateClient',
+                        arguments: client,
+                      ),
                   ),
             
                   const SizedBox(

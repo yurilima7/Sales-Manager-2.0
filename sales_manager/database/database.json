@@ -4,7 +4,6 @@
             "id": 1,
             "name": "Teste Valdo",
             "email": "teste@gmail.com",
-            "password": "12341234",
             "total_vendido": 200.0,
             "recebido": 0.0,
             "receber": 200.0
@@ -31,13 +30,13 @@
     "client": [
         {
             "id": 1,
-            "name": "Laura",
+            "name": "Laura Keller",
             "last_name": "Bezerra",
             "phone": "(99) 99901-2345",
             "district": "Teso Duro",
-            "street": "Rua da Ladeira",
+            "street": "Rua da Ladeira Perdida",
             "number": 23,
-            "due": 150.00,
+            "due": 150.0,
             "user_id": "1"
         },
         {
@@ -48,7 +47,7 @@
             "district": "Teso Duro",
             "street": "Rua da Ladeira",
             "number": 234,
-            "due": 50.00,
+            "due": 50.0,
             "user_id": "2"
         },
         {
@@ -59,7 +58,7 @@
             "district": "Eugênio Coutinho",
             "street": "Rua 10, QD-18",
             "number": 20,
-            "due": 50.00,
+            "due": 50.0,
             "user_id": "1"
         },
         {
@@ -70,7 +69,7 @@
             "district": "Eugênio Coutinho",
             "street": "Rua 22",
             "number": 12,
-            "due": 0.00,
+            "due": 0.0,
             "user_id": "2"
         }
     ],
