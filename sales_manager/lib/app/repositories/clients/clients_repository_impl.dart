@@ -65,7 +65,7 @@ class ClientsRepositoryImpl implements ClientsRepository {
         "street": street,
         "number": number,
         "due": due,
-        "user_id": '#userAuthRef'
+        "user_id": "#userAuthRef"
       });
     } on DioError catch (e, s) {
       log('Erro ao atualizar dados do cliente', error: e, stackTrace: s);

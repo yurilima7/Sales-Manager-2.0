@@ -60,7 +60,7 @@ class _HomeState extends BaseState<Home, HomeController> {
                   child: IntrinsicHeight(
                     child: Column(
                       children: [
-                        UserCard(name: state.user?.name ?? ''),
+                        UserCard(user: state.user),
                     
                         SizedBox(
                            height: constraints.maxHeight * .08,

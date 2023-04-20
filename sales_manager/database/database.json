@@ -4,6 +4,7 @@
             "id": 1,
             "name": "Teste Valdo",
             "email": "teste@gmail.com",
+            "password": "12341234",
             "total_vendido": 200.0,
             "recebido": 0.0,
             "receber": 200.0

@@ -39,17 +39,6 @@ class SalesRepositoryImpl implements SalesRepository {
   }
   
   @override
-  Future<void> deleteAllPurchasesClient(int id) async {
-    try {
-      await dio.auth().delete("/sale?client_id=$id");
-
-    } on DioError catch (e, s) {
-      log('Erro ao deletar compras do cliente', error: e, stackTrace: s);
-      throw RepositoryException(message: 'Erro ao deletar compras do cliente');
-    }
-  }
-  
-  @override
   Future<void> deletePurchaseClient(int id) async {
     try {
       await dio.auth().delete("/sale/$id");

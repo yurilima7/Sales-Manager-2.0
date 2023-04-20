@@ -17,6 +17,7 @@ import 'package:sales_manager/app/pages/splash/splash.dart';
 import 'package:sales_manager/app/pages/home/home_router.dart';
 import 'package:sales_manager/app/pages/update_client/update_address_router.dart';
 import 'package:sales_manager/app/pages/update_client/update_client_router.dart';
+import 'package:sales_manager/app/pages/user_data/user_data_router.dart';
 
 class SalesManager extends StatelessWidget {
   final _navKey = GlobalKey<NavigatorState>();
@@ -49,6 +50,7 @@ class SalesManager extends StatelessWidget {
           '/registerSale': (context) => RegisterSaleRouter.page,
           '/sales': (context) => SalesRouter.page,
           '/productData': (context) => ProductDataRouter.page,
+          '/userData': (context) => UserDataRouter.page,
         },
       ),
     );
