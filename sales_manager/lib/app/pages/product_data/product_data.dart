@@ -67,17 +67,6 @@ class _ProductDataState extends BaseState<ProductData, ProductDataController> {
           iconSize: 20,
           color: context.colors.tertiary,
         ),
-
-        actions: [
-          IconButton(
-            onPressed: () {},
-
-            icon: Image.asset(
-              'assets/images/Delete.png',
-              height: 24,
-            ),
-          ),
-        ],
       ),
 
       body: BlocConsumer<ProductDataController, ProductDataState>(

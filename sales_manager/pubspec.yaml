@@ -82,7 +82,6 @@ flutter:
       - assets\images\User.png
       - assets\images\Add-Venda.png
       - assets\images\Add-Pag.png
-      - assets\images\Delete.png
       - assets\images\AddClient.png
       - .env
 

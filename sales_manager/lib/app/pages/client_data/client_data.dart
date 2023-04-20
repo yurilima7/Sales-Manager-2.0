@@ -48,17 +48,6 @@ class _ClientDataState extends BaseState<ClientData, ClientDataController> {
           iconSize: 20,
           color: context.colors.tertiary,
         ),
-
-        actions: [
-          IconButton(
-            onPressed: () {},
-
-            icon: Image.asset(
-              'assets/images/Delete.png',
-              height: 24,
-            ),
-          ),
-        ],
       ),
 
       body: BlocConsumer<ClientDataController, ClientDataState>(
