@@ -1,4 +1,6 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sales_manager/app/core/ui/styles/colors_app.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 import 'package:sales_manager/app/core/ui/widgets/input.dart';
@@ -93,6 +95,10 @@ class _UpdateClientState extends State<UpdateClient> {
                                     'Digite o número de telefone do cliente',
                                   initialValue: formData['phone'].toString(),
                                   onSaved: (phone) => formData['phone'] = phone ?? '',
+                                  inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                      TelefoneInputFormatter(),
+                                    ],
                                   validator:
                                     Validatorless.required('Telefone obrigatório'),
                                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/app/core/extensions/formater_extensions.dart';
 import 'package:sales_manager/app/core/ui/styles/colors_app.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 import 'package:sales_manager/app/core/ui/widgets/data_card.dart';
@@ -79,9 +80,9 @@ class _UserDataState extends State<UserData> {
         
               DataCard(
                 data: [
-                  'Total a receber: ${widget.user.receber}',
-                  'Recebido ${widget.user.recebido}',
-                  'Total vendido ${widget.user.totalVendido}',
+                  'Total a receber: ${widget.user.receber.currencyPTBR}',
+                  'Recebido ${widget.user.recebido.currencyPTBR}',
+                  'Total vendido ${widget.user.totalVendido.currencyPTBR}',
                   '',
                 ],
               ),

@@ -1,9 +1,12 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sales_manager/app/core/ui/base_state/base_state.dart';
 import 'package:sales_manager/app/core/ui/styles/colors_app.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 import 'package:sales_manager/app/core/ui/widgets/input.dart';
+import 'package:sales_manager/app/core/ui/widgets/insert_day.dart';
 import 'package:sales_manager/app/core/ui/widgets/sales_manager_button.dart';
 import 'package:sales_manager/app/models/client_model.dart';
 import 'package:sales_manager/app/models/user_model.dart';
@@ -25,6 +28,7 @@ class _RegisterSaleState extends BaseState<RegisterSale, RegisterSaleController>
   final _productNameEC = TextEditingController();
   final _priceEC = TextEditingController();
   final _quantityEC = TextEditingController();
+  DateTime _day = DateTime.now();
 
   @override
   void onReady() {
@@ -123,6 +127,10 @@ class _RegisterSaleState extends BaseState<RegisterSale, RegisterSaleController>
                                       hintText:
                                         'Digite o preço do produto',
                                       controller: _priceEC,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                        CentavosInputFormatter(moeda: true),
+                                      ],
                                       validator:
                                         Validatorless.required('Preço do produto obrigatório'),
                                     ),
@@ -144,6 +152,16 @@ class _RegisterSaleState extends BaseState<RegisterSale, RegisterSaleController>
                                         height: 20,
                                     ),
 
+                                    InsertDay(daySelect: _day, onDateChanged: (newData){
+                                      setState(() {
+                                        _day = newData;
+                                      });
+                                    }),
+
+                                    const SizedBox(
+                                        height: 20,
+                                    ),
+
                                     SalesManagerButton(
                                       label: 'Salvar',
                                       onPressed: () {
@@ -156,9 +174,9 @@ class _RegisterSaleState extends BaseState<RegisterSale, RegisterSaleController>
                                             widget.clientModel,
                                             state.user as UserModel,
                                             _productNameEC.text,
-                                            double.tryParse(_priceEC.text) ?? 0.0,
+                                           UtilBrasilFields.converterMoedaParaDouble(_priceEC.text),
                                             int.tryParse(_quantityEC.text) ?? 0,
-                                            '2',
+                                            _day.toString(),
                                           );
                                         }
                                       },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/app/core/extensions/formater_extensions.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 import 'package:sales_manager/app/models/client_model.dart';
 
@@ -40,7 +41,7 @@ class ClientCard extends StatelessWidget {
                   ),
 
                   Text(
-                    client.due.toString(),
+                    client.due.currencyPTBR,
                     style: context.textApp.primarySemiBold,
                   ),
                 ],

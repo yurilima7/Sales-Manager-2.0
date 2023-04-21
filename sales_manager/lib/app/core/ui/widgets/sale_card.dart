@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/app/core/extensions/formater_extensions.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 import 'package:sales_manager/app/models/sale_model.dart';
 
@@ -39,7 +40,7 @@ class SaleCard extends StatelessWidget {
                   ),
 
                   Text(
-                    sale.price.toString(),
+                    sale.price.currencyPTBR,
                     style: context.textApp.primarySemiBold,
                   ),
                 ],

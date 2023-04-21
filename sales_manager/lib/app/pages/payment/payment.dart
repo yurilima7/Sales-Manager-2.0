@@ -1,5 +1,9 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:sales_manager/app/core/extensions/formater_extensions.dart';
 import 'package:sales_manager/app/core/ui/base_state/base_state.dart';
 import 'package:sales_manager/app/core/ui/styles/colors_app.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
@@ -111,10 +115,10 @@ class _PaymentState extends BaseState<Payment, PaymentController> {
                     ),
 
                     DataCard(data: [
-                      'Compra: ${sale!.day}',
+                      'Compra: ${DateFormat('dd/MM/y').format(DateTime.parse(sale!.day))}',
                       'Quantidade: ${sale!.quantity}',
-                      'Unidade: ${sale!.price}',
-                      'Total: ${sale!.total}',
+                      'Unidade: ${sale!.price.currencyPTBR}',
+                      'Total: ${sale!.total.currencyPTBR}',
                     ]),
                   ],
                 ),
@@ -124,14 +128,18 @@ class _PaymentState extends BaseState<Payment, PaymentController> {
                   child: Column(
                     children: [
                       Input(label: 'Digite o valor',
-                        hintText: 'Ex: 12,00',
+                        hintText: 'Ex: R\$ 12,00',
                         controller: _paymentEC,
+                         inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            CentavosInputFormatter(moeda: true),
+                          ],
                         validator: Validatorless.multiple([
                           Validatorless.required('Valor obrigatório'),
                           Validatorless.numbersBetweenInterval(
                             0.01,
                             sale!.total,
-                            'Valor não corresponde ao intervalo de 0,01 e ${sale!.total}',
+                            "Valor não corresponde ao intervalo de R\$ 0,01 e ${sale!.total.currencyPTBR}",
                           ),
                         ]),
                       ),
@@ -151,7 +159,7 @@ class _PaymentState extends BaseState<Payment, PaymentController> {
                               sale!.id,
                               client!.id,
                               state.user!.id,
-                              double.tryParse(_paymentEC.text) ?? 0.0,
+                              UtilBrasilFields.converterMoedaParaDouble(_paymentEC.text),
                               sale!.total,
                               client!.due,
                               state.user!.recebido ,

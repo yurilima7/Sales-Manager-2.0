@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sales_manager/app/core/ui/styles/colors_app.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 
@@ -13,6 +14,7 @@ class Input extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final String? initialValue;
   final Function(String?)? onSaved;
+  final List<TextInputFormatter>? inputFormatters;
 
   Input({
     super.key,
@@ -24,7 +26,8 @@ class Input extends StatelessWidget {
     this.controller,
     this.validator,
     this.initialValue,
-    this.onSaved,
+    this.onSaved, 
+    this.inputFormatters,
   }) : obscureTextVN = ValueNotifier(obscureText);
 
   @override
@@ -39,6 +42,7 @@ class Input extends StatelessWidget {
           validator: validator,
           initialValue: initialValue,
           onSaved: onSaved,
+          inputFormatters: inputFormatters,
         
           style: context.textApp.textPrimary,
         

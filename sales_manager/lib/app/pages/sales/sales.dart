@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sales_manager/app/core/extensions/formater_extensions.dart';
 import 'package:sales_manager/app/core/ui/styles/colors_app.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 import 'package:sales_manager/app/models/sale_model.dart';
@@ -73,7 +74,7 @@ class _SalesState extends State<Sales> {
                               ),
 
                               Text(
-                                sales.elementAt(i).price.toString(),
+                                sales.elementAt(i).price.currencyPTBR,
                                 style: context.textApp.primarySemiBold,
                               ),
                             ],

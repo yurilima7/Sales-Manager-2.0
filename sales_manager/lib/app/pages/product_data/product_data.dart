@@ -1,10 +1,16 @@
+import 'dart:developer';
+
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sales_manager/app/core/extensions/formater_extensions.dart';
 import 'package:sales_manager/app/core/ui/base_state/base_state.dart';
 import 'package:sales_manager/app/core/ui/styles/colors_app.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 import 'package:sales_manager/app/core/ui/widgets/data_card.dart';
 import 'package:sales_manager/app/core/ui/widgets/input.dart';
+import 'package:sales_manager/app/core/ui/widgets/insert_day.dart';
 import 'package:sales_manager/app/core/ui/widgets/sales_manager_button.dart';
 import 'package:sales_manager/app/models/client_model.dart';
 import 'package:sales_manager/app/models/sale_model.dart';
@@ -122,8 +128,8 @@ class _ProductDataState extends BaseState<ProductData, ProductDataController> {
                     data: [
                       'Compra: ${sale?.productName ?? ''}',
                       'Quantidade ${sale?.quantity ?? ''}',
-                      'Unidade: ${sale?.price ?? ''}',
-                      'Valor total: ${sale?.total ?? ''}',
+                      'Unidade: ${sale?.price.currencyPTBR ?? ''}',
+                      'Valor total: ${sale?.total.currencyPTBR ?? ''}',
                     ],
                   ),
             
@@ -159,13 +165,17 @@ class _ProductDataState extends BaseState<ProductData, ProductDataController> {
                         const SizedBox(
                           height: 20,
                         ),
-
+// DateFormat('dd/MM/y').format(DateTime.parse(sale!.day))
                         Input(
                           label: 'Preço',
                           hintText:
                             'Digite o preço do produto',
-                          initialValue: formData['price'].toString(),
+                          initialValue: sale?.price.currencyPTBR,
                           onSaved: (price) => formData['price'] = price ?? 0.0,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            CentavosInputFormatter(moeda: true),
+                          ],
                           validator:
                             Validatorless.required('Preço do produto obrigatório'),
                         ),
@@ -188,6 +198,16 @@ class _ProductDataState extends BaseState<ProductData, ProductDataController> {
                             height: 20,
                         ),
 
+                        InsertDay(daySelect: DateTime.parse(formData['day'].toString()), onDateChanged: (newData){
+                          setState(() {
+                            formData['day'] = newData;
+                          });
+                        }),
+
+                        const SizedBox(
+                            height: 20,
+                        ),
+
                           SalesManagerButton(
                             label: 'Salvar',
                             onPressed: () {
@@ -197,17 +217,18 @@ class _ProductDataState extends BaseState<ProductData, ProductDataController> {
 
                               if (valid) {
                                 _formKey.currentState?.save();
-
+                                log(formData['price'].toString());
+                                log(sale!.price.toString());
                                 controller.productUpdate(
                                   sale!.id,
                                   client!,
                                   state.user!,
                                   formData['productName'].toString(),
-                                  double.tryParse(formData['price'].toString()) ?? 0.0,
+                                  UtilBrasilFields.converterMoedaParaDouble(formData['price'].toString()),
                                   sale!.price,
                                   int.tryParse(formData['quantity'].toString()) ?? 0,
                                   sale!.quantity,
-                                  sale!.day,
+                                  formData['day'].toString(),
                                   sale!.total
                                 );
                               }
