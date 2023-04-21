@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -165,7 +163,7 @@ class _ProductDataState extends BaseState<ProductData, ProductDataController> {
                         const SizedBox(
                           height: 20,
                         ),
-// DateFormat('dd/MM/y').format(DateTime.parse(sale!.day))
+
                         Input(
                           label: 'Preço',
                           hintText:
@@ -217,8 +215,6 @@ class _ProductDataState extends BaseState<ProductData, ProductDataController> {
 
                               if (valid) {
                                 _formKey.currentState?.save();
-                                log(formData['price'].toString());
-                                log(sale!.price.toString());
                                 controller.productUpdate(
                                   sale!.id,
                                   client!,
