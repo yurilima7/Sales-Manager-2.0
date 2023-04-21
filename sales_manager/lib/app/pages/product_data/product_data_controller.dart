@@ -24,10 +24,11 @@ class ProductDataController extends Cubit<ProductDataState> {
 
     try {
       final user = await _userRepository.loadUser();
+      final userData = await _userRepository.loadUserData(user.id);
 
       emit(state.copyWith(
         status: ProductDataStatus.loaded,
-        user: user,
+        user: userData,
       ));
     } catch (e, s) {
       log('Erro ao buscar dados do usuário', error: e, stackTrace: s);
@@ -67,14 +68,8 @@ class ProductDataController extends Cubit<ProductDataState> {
         (user.totalVendido - (oldQuantity * oldPrice)) + price * quantity,
       );
 
-      _salesRepository.updateSale(
-        id,
-        productName,
-        day,
-        quantity,
-        price,
-        total + ((price * quantity) - (oldPrice * oldQuantity))
-      );
+      _salesRepository.updateSale(id, productName, day, quantity, price,
+          total + ((price * quantity) - (oldPrice * oldQuantity)));
 
       emit(state.copyWith(
         status: ProductDataStatus.updated,

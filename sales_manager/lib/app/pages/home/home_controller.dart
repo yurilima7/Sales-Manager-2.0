@@ -22,12 +22,16 @@ class HomeController extends Cubit<HomeState> {
 
     try {
       final user = await _userRepository.loadUser();
+      final userData = await _userRepository.loadUserData(user.id);
       final clients = await _clientsRepository.loadClients(user.id.toString());
       final sales = await _salesRepository.loadSales(user.id.toString());
 
+      clients.sort((name1, name2) => name1.name.compareTo(name2.name));
+      sales.sort((product1, product2) => product2.day.compareTo(product1.day));
+
       emit(state.copyWith(
         status: HomeStatus.loaded,
-        user: user,
+        user: userData,
         clients: clients,
         sales: sales,
       ));

@@ -18,7 +18,7 @@ class ClientData extends StatefulWidget {
 
 class _ClientDataState extends BaseState<ClientData, ClientDataController> {
   ClientModel? client;
-  bool isLoading = true;
+  bool _isLoading = true;
   
   @override
   void didChangeDependencies() {
@@ -54,12 +54,12 @@ class _ClientDataState extends BaseState<ClientData, ClientDataController> {
         listener: (context, state) {
           state.status.matchAny(
             any: () {
-              isLoading = false;
+              _isLoading = false;
               hideLoader();
             },
             loading: () => showLoader(),
             error: () {
-              isLoading = false;
+              _isLoading = false;
               hideLoader();
               showErro(state.errorMessage ?? 'Erro não informado');
             },
@@ -77,87 +77,91 @@ class _ClientDataState extends BaseState<ClientData, ClientDataController> {
             padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 10,),
         
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-        
-                children: [
-                  const SizedBox(
-                    height: 40,
-                  ),
-        
-                  Text(
-                    'Dados',
-                    style: context.textApp.primarySemiBold.copyWith(
-                      color: context.colors.tertiary,
+              child: Visibility(
+                visible: !_isLoading,
+                
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                      
+                  children: [
+                    const SizedBox(
+                      height: 40,
                     ),
-                  ),
-                    
-                  const SizedBox(
-                    height: 8,
-                  ),
-                    
-                  DataCard(
-                    data: [
-                      'Telefone: ${client!.phone}',
-                      'Bairro ${client!.district}',
-                      'Rua: ${client!.street}',
-                      'N°: ${client!.number}',
-                    ],
-                    isUpdateIcon: true,
-                      onPressed: () => Navigator.of(context).pushNamed(
-                        '/updateClient',
-                        arguments: client,
+                      
+                    Text(
+                      'Dados',
+                      style: context.textApp.primarySemiBold.copyWith(
+                        color: context.colors.tertiary,
                       ),
-                  ),
-            
-                  const SizedBox(
-                    height: 35,
-                  ),
-            
-                  Text(
-                    'Compras',
-                    style: context.textApp.primarySemiBold.copyWith(
-                      color: context.colors.tertiary,
                     ),
-                  ),
-        
-                  const SizedBox(
-                    height: 8,
-                  ),
-        
-                  Visibility(
-                    visible: state.sales!.isNotEmpty,
-
-                    replacement: !isLoading ? SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.5,
-
-                      child: Center(
-                        child: Text(
-                            'Não existem compras realizadas',
-                            style: context.textApp.primarySemiBold.copyWith(
-                              color: context.colors.tertiary,
+                      
+                    const SizedBox(
+                      height: 8,
+                    ),
+                      
+                    DataCard(
+                      data: [
+                        'Telefone: ${client!.phone}',
+                        'Bairro ${client!.district}',
+                        'Rua: ${client!.street}',
+                        'N°: ${client!.number}',
+                      ],
+                      isUpdateIcon: true,
+                        onPressed: () => Navigator.of(context).pushNamed(
+                          '/updateClient',
+                          arguments: client,
+                        ),
+                    ),
+                          
+                    const SizedBox(
+                      height: 35,
+                    ),
+                          
+                    Text(
+                      'Compras',
+                      style: context.textApp.primarySemiBold.copyWith(
+                        color: context.colors.tertiary,
+                      ),
+                    ),
+                      
+                    const SizedBox(
+                      height: 8,
+                    ),
+                      
+                    Visibility(
+                      visible: state.sales!.isNotEmpty,
+              
+                      replacement: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.5,
+              
+                        child: Center(
+                          child: Text(
+                              'Não existem compras realizadas',
+                              style: context.textApp.primarySemiBold.copyWith(
+                                color: context.colors.tertiary,
+                              ),
                             ),
-                          ),
+                        ),
                       ),
-                    ) : const SizedBox.shrink(),
-                    
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: state.sales!.length,
-                      itemBuilder: (_, i) => SaleCard(
-                        sale: state.sales!.elementAt(i),
-                          onPressed: () => Navigator.of(context).pushNamed(
-                            '/productData',
-                            arguments: {
-                              'client': client,
-                              'sale': state.sales!.elementAt(i),
-                            }
-                          ),
+                      
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: state.sales!.length,
+                        itemBuilder: (_, i) => SaleCard(
+                          sale: state.sales!.elementAt(i),
+                            onPressed: () => Navigator.of(context).pushNamed(
+                              '/productData',
+                              arguments: {
+                                'client': client,
+                                'sale': state.sales!.elementAt(i),
+                              }
+                            ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

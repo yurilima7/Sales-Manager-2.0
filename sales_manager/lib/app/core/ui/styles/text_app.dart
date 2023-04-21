@@ -30,14 +30,14 @@ class TextApp {
         color: ColorsApp.i.tertiary,
         fontFamily: fontSecondary,
         fontWeight: FontWeight.w400,
-        fontSize: 16,
+        fontSize: 20,
       );
 
   TextStyle get appBarHome => TextStyle(
         color: ColorsApp.i.tertiary,
         fontFamily: fontTertiary,
         fontWeight: FontWeight.w400,
-        fontSize: 16,
+        fontSize: 20,
       );
 
   TextStyle get userCard => TextStyle(

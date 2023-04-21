@@ -168,7 +168,7 @@ class _ProductDataState extends BaseState<ProductData, ProductDataController> {
                           label: 'Preço',
                           hintText:
                             'Digite o preço do produto',
-                          initialValue: sale?.price.currencyPTBR,
+                          initialValue: (formData['price'] as double).currencyPTBR,
                           onSaved: (price) => formData['price'] = price ?? 0.0,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
@@ -215,12 +215,14 @@ class _ProductDataState extends BaseState<ProductData, ProductDataController> {
 
                               if (valid) {
                                 _formKey.currentState?.save();
+                                final newSalePrice = formData['price'].toString().removeCurrencyFormat();
+                               
                                 controller.productUpdate(
                                   sale!.id,
                                   client!,
                                   state.user!,
                                   formData['productName'].toString(),
-                                  UtilBrasilFields.converterMoedaParaDouble(formData['price'].toString()),
+                                  double.tryParse(newSalePrice) ?? 0,
                                   sale!.price,
                                   int.tryParse(formData['quantity'].toString()) ?? 0,
                                   sale!.quantity,

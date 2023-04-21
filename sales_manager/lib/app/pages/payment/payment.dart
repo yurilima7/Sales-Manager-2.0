@@ -91,88 +91,93 @@ class _PaymentState extends BaseState<Payment, PaymentController> {
           return Padding(
             padding: const EdgeInsets.all(20),
 
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
-                  children: [
-                    const SizedBox(
-                      height: 40,
-                    ),
-
-                    Text(
-                      sale!.productName,
-                      style: context.textApp.primarySemiBold.copyWith(
-                        color: context.colors.tertiary,
-                      ),
-                    ),
-
-                    const SizedBox(
-                      height: 8,
-                    ),
-
-                    DataCard(data: [
-                      'Compra: ${DateFormat('dd/MM/y').format(DateTime.parse(sale!.day))}',
-                      'Quantidade: ${sale!.quantity}',
-                      'Unidade: ${sale!.price.currencyPTBR}',
-                      'Total: ${sale!.total.currencyPTBR}',
-                    ]),
-                  ],
-                ),
-
-                Form(
-                  key: _formKey,
-                  child: Column(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+            
                     children: [
-                      Input(label: 'Digite o valor',
-                        hintText: 'Ex: R\$ 12,00',
-                        controller: _paymentEC,
-                         inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            CentavosInputFormatter(moeda: true),
-                          ],
-                        validator: Validatorless.multiple([
-                          Validatorless.required('Valor obrigatório'),
-                          Validatorless.numbersBetweenInterval(
-                            0.01,
-                            sale!.total,
-                            "Valor não corresponde ao intervalo de R\$ 0,01 e ${sale!.total.currencyPTBR}",
-                          ),
-                        ]),
-                      ),
-                
                       const SizedBox(
-                        height: 20,
+                        height: 40,
                       ),
-                
-                      SalesManagerButton(
-                        label: 'Pagar',
-                        onPressed: () {
-                          final valid =
-                              _formKey.currentState?.validate() ?? false;
-                          
-                          if (valid && (state.user != null ? true : false)) {
-                            controller.payment(
-                              sale!.id,
-                              client!.id,
-                              state.user!.id,
-                              UtilBrasilFields.converterMoedaParaDouble(_paymentEC.text),
-                              sale!.total,
-                              client!.due,
-                              state.user!.recebido ,
-                              state.user!.receber,
-                              state.user!.totalVendido,
-                            );
-                          }
-                        },
+            
+                      Text(
+                        sale!.productName,
+                        style: context.textApp.primarySemiBold.copyWith(
+                          color: context.colors.tertiary,
+                        ),
                       ),
+            
+                      const SizedBox(
+                        height: 8,
+                      ),
+            
+                      DataCard(data: [
+                        'Compra: ${DateFormat('dd/MM/y').format(DateTime.parse(sale!.day))}',
+                        'Quantidade: ${sale!.quantity}',
+                        'Unidade: ${sale!.price.currencyPTBR}',
+                        'Total: ${sale!.total.currencyPTBR}',
+                      ]),
                     ],
                   ),
-                ),
-              ],
+
+                  const SizedBox(
+                    height: 8,
+                  ),
+            
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Input(label: 'Digite o valor',
+                          hintText: 'Ex: R\$ 12,00',
+                          controller: _paymentEC,
+                           inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              CentavosInputFormatter(moeda: true),
+                            ],
+                          validator: Validatorless.multiple([
+                            Validatorless.required('Valor obrigatório'),
+                          ]),
+                        ),
+                  
+                        const SizedBox(
+                          height: 20,
+                        ),
+                  
+                        SalesManagerButton(
+                          label: 'Pagar',
+                          onPressed: () {
+                            final valid =
+                                _formKey.currentState?.validate() ?? false;
+                            final value = UtilBrasilFields.converterMoedaParaDouble(_paymentEC.text);
+                            
+                            if (valid && (state.user != null ? true : false) && (value > 0.01 && value < 50.01)) {
+                              controller.payment(
+                                sale!.id,
+                                client!.id,
+                                state.user!.id,
+                                value,
+                                sale!.total,
+                                client!.due,
+                                state.user!.recebido ,
+                                state.user!.receber,
+                                state.user!.totalVendido,
+                              );
+                            } else {
+                              showInfo(
+                                  'Valor não está no intervalo de R\$ 0,01 e R\$ ${sale!.total}');
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },

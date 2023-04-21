@@ -4,6 +4,7 @@ import 'package:sales_manager/app/core/ui/styles/colors_app.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
 import 'package:sales_manager/app/core/ui/widgets/data_card.dart';
 import 'package:sales_manager/app/models/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserData extends StatefulWidget {
   final UserModel user;
@@ -17,6 +18,8 @@ class UserData extends StatefulWidget {
 class _UserDataState extends State<UserData> {
   @override
   Widget build(BuildContext context) {
+    final nav = Navigator.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -56,9 +59,9 @@ class _UserDataState extends State<UserData> {
         
               DataCard(
                 data: [
+                  'INFORMAÇÕES',
                   'Nome: ${widget.user.name}',
-                  'Email ${widget.user.email}',
-                  '',
+                  'Email: ${widget.user.email}',
                   '',
                 ],
               ),
@@ -118,9 +121,14 @@ class _UserDataState extends State<UserData> {
                           children: [
                             
                             InkWell(
-                              onTap: () => Navigator.of(context)
-                                  .pushNamedAndRemoveUntil(
-                                      '/auth/login', (route) => false),
+                              onTap: () async { 
+                                final sp = await SharedPreferences.getInstance();
+                                sp.clear();
+
+                                nav.pushNamedAndRemoveUntil(
+                                      '/auth/login', (route) => false);
+                              },
+
                               child: Text('Sair',
                                   style: context.textApp.primaryRegular),
                             ),

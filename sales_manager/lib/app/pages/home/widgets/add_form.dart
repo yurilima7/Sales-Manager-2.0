@@ -23,13 +23,13 @@ class AddForm extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed(
+                clients.isNotEmpty ? Navigator.of(context).pushNamed(
                   '/clients',
                   arguments: {
                     'clients': clients,
                     'route': '/registerSale',
                   },
-                );
+                ) : () {};
               },
 
               child: Image.asset(
@@ -74,13 +74,13 @@ class AddForm extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed(
+                clients.isNotEmpty ? Navigator.of(context).pushNamed(
                   '/clients',
                   arguments: {
                     'clients': clients,
                     'route': '/selPayment',
                   },
-                );
+                ) : () {};
               },
 
               child: Image.asset(

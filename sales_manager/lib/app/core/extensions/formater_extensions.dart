@@ -10,3 +10,9 @@ extension FormaterExtension on double {
     return currencyFormat.format(this);
   }
 }
+
+extension CurrencyFormatter on String {
+  String removeCurrencyFormat() {
+    return replaceAll('R\$', '').replaceAll(',', '.');
+  }
+}

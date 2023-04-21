@@ -50,7 +50,7 @@ class SalesRepositoryImpl implements SalesRepository {
   }
   
   @override
-  Future<void> addSale(String productName, String day, int quantity, double price, double total, String clientId) async {
+  Future<void> addSale(String productName, String day, int quantity, double price, double total, String clientId, int id) async {
     try {
       await dio.auth().post("/sale", data: {
         "product_name": productName,
@@ -59,6 +59,7 @@ class SalesRepositoryImpl implements SalesRepository {
         "day": day,
         "total": total,
         "client_id": clientId,
+        "user_id": id,
       });
 
     } on DioError catch (e, s) {

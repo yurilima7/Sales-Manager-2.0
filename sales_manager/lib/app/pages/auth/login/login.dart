@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sales_manager/app/core/ui/base_state/base_state.dart';
 import 'package:sales_manager/app/core/ui/styles/colors_app.dart';
 import 'package:sales_manager/app/core/ui/styles/text_app.dart';
-import 'package:sales_manager/app/core/ui/widgets/google_button.dart';
 import 'package:sales_manager/app/core/ui/widgets/input.dart';
 import 'package:sales_manager/app/core/ui/widgets/sales_manager_button.dart';
 import 'package:sales_manager/app/pages/auth/login/login_controller.dart';
@@ -147,12 +146,6 @@ class _LoginState extends BaseState<Login, LoginController> {
         
                                   const SizedBox(
                                     height: 20,
-                                  ),
-        
-                                  const GoogleButton(),
-        
-                                  const SizedBox(
-                                    height: 10,
                                   ),
         
                                   Align(

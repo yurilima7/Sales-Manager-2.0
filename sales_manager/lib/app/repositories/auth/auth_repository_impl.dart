@@ -42,6 +42,11 @@ class AuthRepositoryImpl implements AuthRepository {
         "name": name,
         "email": email,
         "password": password,
+      });
+
+      await dio.unauth().post('/users_data', data: {
+        "name": name,
+        "email": email,
         "total_vendido": 0.0,
         "recebido": 0.0,
         "receber": 0.0

@@ -10,6 +10,8 @@ auth:
   urlSkip:
     - /users:
         method: post
+    - /users_data:
+        method: post
     - /users:
         method: get
     - /client:

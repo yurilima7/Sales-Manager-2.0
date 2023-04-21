@@ -19,10 +19,36 @@ class Client extends StatefulWidget {
 }
 
 class _ClientState extends State<Client> {
+  final searchController = TextEditingController();
+  late List<ClientModel> filteredClients;
+
+  @override
+  void initState() {
+    filteredClients = widget.clients;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  void _filterClients(String searchText) {
+    setState(() {
+      if (searchText.isEmpty) {
+        filteredClients = widget.clients;
+      } else {
+        filteredClients = widget.clients
+            .where((client) =>
+                client.name.toLowerCase().contains(searchText.toLowerCase()))
+            .toList();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final clients = widget.clients;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -49,6 +75,8 @@ class _ClientState extends State<Client> {
               ),
 
               TextFormField(
+                controller: searchController,
+                onChanged: (value) => _filterClients(value),
                 decoration: InputDecoration(
                   labelText: 'Buscar cliente',
                   hintText: 'Digite o nome do cliente',
@@ -64,12 +92,12 @@ class _ClientState extends State<Client> {
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: widget.clients.length,
+                itemCount: filteredClients.length,
                 itemBuilder: (_, i) => ClientCard(
-                  client: clients.elementAt(i),
+                  client: filteredClients.elementAt(i),
                   function: () => Navigator.of(context).pushNamed(
                     widget.route,
-                    arguments: clients.elementAt(i),
+                    arguments: filteredClients.elementAt(i),
                   ),
                 ),
               ),

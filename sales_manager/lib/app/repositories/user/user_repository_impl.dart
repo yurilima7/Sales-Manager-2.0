@@ -29,7 +29,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<void> updateValuesUser(int id, double recebido, double receber, double totalVendido) async {
     try {
-      await dio.auth().patch('/users/$id', data: {
+      await dio.auth().patch('/users_data/$id', data: {
         "total_vendido": totalVendido,
         "recebido": recebido,
         "receber": receber,
@@ -37,6 +37,18 @@ class UserRepositoryImpl implements UserRepository {
     } on DioError catch (e, s) {
       log('Erro ao atualizar valores do usuário', error: e, stackTrace: s);
       throw RepositoryException(message: 'Erro ao atualizar valores do usuário');
+    }
+  }
+  
+  @override
+  Future<UserModel> loadUserData(int id) async {
+    try {
+      final result = await dio.auth().get("/users_data/$id");
+
+      return UserModel.fromMap(result.data);
+    } on DioError catch (e, s) {
+      log('Erro ao buscar usuário', error: e, stackTrace: s);
+      throw RepositoryException(message: 'Erro ao buscar usuário');
     }
   }
 }

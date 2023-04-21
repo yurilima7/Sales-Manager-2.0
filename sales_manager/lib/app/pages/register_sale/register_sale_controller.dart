@@ -24,10 +24,11 @@ class RegisterSaleController extends Cubit<RegisterSaleState> {
 
     try {
       final user = await _userRepository.loadUser();
+      final userData = await _userRepository.loadUserData(user.id);
 
       emit(state.copyWith(
         status: RegisterSaleStatus.loaded,
-        user: user,
+        user: userData,
       ));
     } catch (e, s) {
       log('Erro ao buscar dados do usuário', error: e, stackTrace: s);
@@ -70,6 +71,7 @@ class RegisterSaleController extends Cubit<RegisterSaleState> {
         price,
         price * quantity,
         client.id.toString(),
+        user.id
       );
 
       emit(state.copyWith(

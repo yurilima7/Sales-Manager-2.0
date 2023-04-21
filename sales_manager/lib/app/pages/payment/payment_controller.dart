@@ -22,10 +22,11 @@ class PaymentController extends Cubit<PaymentState> {
 
     try {
       final user = await _userRepository.loadUser();
+      final userData = await _userRepository.loadUserData(user.id);
 
       emit(state.copyWith(
         status: PaymentStatus.loaded,
-        user: user,
+        user: userData,
       ));
     } catch (e, s) {
       log('Erro ao buscar usuário', error: e, stackTrace: s);
@@ -64,7 +65,6 @@ class PaymentController extends Cubit<PaymentState> {
           receber - valuePayment,
           totalVendido,
         );
-
       } else if (valuePayment < total && valuePayment > 0.0) {
         _salesRepository.paymentSale(idSale, total - valuePayment);
 
@@ -82,7 +82,6 @@ class PaymentController extends Cubit<PaymentState> {
       }
 
       emit(state.copyWith(status: PaymentStatus.paid));
-
     } catch (e, s) {
       log('Erro ao realizar o pagamento do cliente', error: e, stackTrace: s);
       emit(state.copyWith(

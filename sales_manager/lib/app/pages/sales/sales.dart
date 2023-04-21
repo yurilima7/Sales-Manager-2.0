@@ -24,7 +24,7 @@ class _SalesState extends State<Sales> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Vendas',
+          'Vendas Recentes',
           style: context.textApp.appBarRegular,
         ),
         
