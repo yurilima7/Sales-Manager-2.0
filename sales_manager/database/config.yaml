@@ -12,9 +12,3 @@ auth:
         method: post
     - /users_data:
         method: post
-    - /users:
-        method: get
-    - /client:
-        method: get
-    - /sale:
-        method: get

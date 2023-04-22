@@ -29,6 +29,12 @@
             "name": "Santiago",
             "email": "santiago@gmail.com",
             "password": "12341234"
+        },
+        {
+            "id": 6,
+            "name": "Teste",
+            "email": "teste@teste.com",
+            "password": "12341234"
         }
     ],
     "users_data": [
@@ -73,6 +79,14 @@
             "total_vendido": 0.0,
             "recebido": 0.0,
             "receber": 0.0
+        },
+        {
+            "id": 6,
+            "name": "Teste",
+            "email": "teste@teste.com",
+            "total_vendido": 60.0,
+            "recebido": 20.0,
+            "receber": 40.0
         }
     ],
     "client": [
@@ -159,6 +173,16 @@
             "number": 12,
             "due": 0.0,
             "user_id": "3"
+        },
+        {
+            "id": 9,
+            "name": "Alberto",
+            "phone": "(99) 9999-9999",
+            "district": "Centro",
+            "street": "Avenida Central",
+            "number": 234,
+            "due": 40.0,
+            "user_id": "6"
         }
     ],
     "sale": [
@@ -211,6 +235,16 @@
             "total": 40.0,
             "client_id": "7",
             "user_id": 3
+        },
+        {
+            "id": 7,
+            "product_name": "Boné",
+            "price": 20.0,
+            "quantity": 3,
+            "day": "2023-04-22 22:33:31.613836",
+            "total": 40.0,
+            "client_id": "9",
+            "user_id": 6
         }
     ]
 }

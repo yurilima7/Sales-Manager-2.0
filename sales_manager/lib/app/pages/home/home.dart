@@ -112,7 +112,7 @@ class _HomeState extends BaseState<Home, HomeController> {
                           'clients': state.clients,
                           'route': '/clientData',
                         },
-                      ) : () {},
+                      ) : () => showInfo('Impossível acessar, não existem clientes cadastrados!'),
                     ),
               
                   const SizedBox(
@@ -134,7 +134,7 @@ class _HomeState extends BaseState<Home, HomeController> {
                       function: state.sales!.isNotEmpty ? () => Navigator.of(context).pushNamed(
                         '/sales',
                         arguments: state.sales
-                    ) :() {},
+                    ) :  () => showInfo('Impossível acessar, não existem vendas realizadas!'),
                   ),
                 ],
               ),

@@ -83,44 +83,46 @@ class _SelectToPaymentState
               bottom: 10,
             ),
 
-            child: Visibility(
-              visible: state.sales!.isNotEmpty,
-
-              replacement: !isLoading ? Column(
-                children: [
-                  const SizedBox(
-                    height: 40,
-                  ),
-
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.8,
-
-                    child: Center(
-                      child: Text(
-                          'Não existem compras realizadas',
-                          style: context.textApp.primarySemiBold.copyWith(
-                            color: context.colors.tertiary,
-                          ),
-                        ),
+            child: SingleChildScrollView(
+              child: Visibility(
+                visible: state.sales!.isNotEmpty,
+            
+                replacement: !isLoading ? Column(
+                  children: [
+                    const SizedBox(
+                      height: 40,
                     ),
-                  ),
-                ],
-              ) : const SizedBox.shrink(),
-              
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20.0),
+            
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.8,
+            
+                      child: Center(
+                        child: Text(
+                            'Não existem compras realizadas',
+                            style: context.textApp.primarySemiBold.copyWith(
+                              color: context.colors.tertiary,
+                            ),
+                          ),
+                      ),
+                    ),
+                  ],
+                ) : const SizedBox.shrink(),
                 
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: state.sales!.length,
-                  itemBuilder: (_, i) => SaleCard(
-                    sale: state.sales!.elementAt(i),
-                    onPressed: () => Navigator.of(context).pushNamed(
-                      '/payment',
-                      arguments: {
-                        'client': client,
-                        'sale': state.sales!.elementAt(i),
-                      },
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.sales!.length,
+                    itemBuilder: (_, i) => SaleCard(
+                      sale: state.sales!.elementAt(i),
+                      onPressed: () => Navigator.of(context).pushNamed(
+                        '/payment',
+                        arguments: {
+                          'client': client,
+                          'sale': state.sales!.elementAt(i),
+                        },
+                      ),
                     ),
                   ),
                 ),
