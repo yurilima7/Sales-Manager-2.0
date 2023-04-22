@@ -66,8 +66,8 @@ class _HomeState extends BaseState<Home, HomeController> {
                   _isLoading 
                     ? Shimmer.fromColors(
                         enabled: _isLoading,
-                        baseColor: Colors.blueGrey,
-                        highlightColor: Colors.white,
+                        baseColor: const Color(0xFFB280D2),
+                        highlightColor: const Color(0xFFF5F5F5),
 
                         child: const UserCard(),
                       )
@@ -80,8 +80,8 @@ class _HomeState extends BaseState<Home, HomeController> {
                   _isLoading 
                     ? Shimmer.fromColors(
                       enabled: _isLoading,
-                      baseColor: Colors.blueGrey,
-                      highlightColor: Colors.white,
+                      baseColor: const Color(0xFFB280D2),
+                      highlightColor: const Color(0xFFF5F5F5),
 
                       child: const AddForm(clients: [], sales: [],),
                     ) 
@@ -97,8 +97,8 @@ class _HomeState extends BaseState<Home, HomeController> {
                   _isLoading 
                     ? Shimmer.fromColors(
                       enabled: _isLoading,
-                      baseColor: Colors.blueGrey,
-                      highlightColor: Colors.white,
+                      baseColor: const Color(0xFFB280D2),
+                      highlightColor: const Color(0xFFF5F5F5),
 
                       child: const HomeCard(title: '', subtitle: ''),
                     ) 
@@ -122,10 +122,10 @@ class _HomeState extends BaseState<Home, HomeController> {
                   _isLoading 
                     ? Shimmer.fromColors(
                       enabled: _isLoading,
-                      baseColor: Colors.blueGrey,
-                      highlightColor: Colors.white,
+                      baseColor: const Color(0xFFB280D2),
+                      highlightColor: const Color(0xFFF5F5F5),
 
-                      child: const AddForm(clients: [], sales: [],),
+                      child: const HomeCard(title: '', subtitle: '',),
                     ) 
                     : 
                     HomeCard(

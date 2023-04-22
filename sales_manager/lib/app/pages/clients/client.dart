@@ -77,6 +77,8 @@ class _ClientState extends State<Client> {
               TextFormField(
                 controller: searchController,
                 onChanged: (value) => _filterClients(value),
+                style: context.textApp.textPrimary.copyWith(color: Colors.black),
+                
                 decoration: InputDecoration(
                   labelText: 'Buscar cliente',
                   hintText: 'Digite o nome do cliente',

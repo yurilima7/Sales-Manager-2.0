@@ -7,6 +7,8 @@ import 'package:sales_manager/app/repositories/clients/clients_repository.dart';
 import 'package:sales_manager/app/repositories/clients/clients_repository_impl.dart';
 import 'package:sales_manager/app/repositories/sales/sales_repository.dart';
 import 'package:sales_manager/app/repositories/sales/sales_repository_impl.dart';
+import 'package:sales_manager/app/repositories/user/user_repository.dart';
+import 'package:sales_manager/app/repositories/user/user_repository_impl.dart';
 
 class ClientDataRouter {
   ClientDataRouter._();
@@ -19,6 +21,12 @@ class ClientDataRouter {
             ),
           ),
 
+        Provider<UserRepository>(
+          create: (context) => UserRepositoryImpl(
+            dio: context.read<CustomDio>(),
+          ),
+        ),
+        
         Provider<ClientsRepository>(
             create: (context) => ClientsRepositoryImpl(
               dio: context.read<CustomDio>(),
@@ -28,6 +36,7 @@ class ClientDataRouter {
         Provider(
           create: (context) =>
             ClientDataController(
+              context.read(),
               context.read(),
               context.read(),
             ),

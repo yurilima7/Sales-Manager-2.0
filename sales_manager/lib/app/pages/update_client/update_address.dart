@@ -62,6 +62,7 @@ class _UpdateAddressState extends BaseState<UpdateAddress, UpdateClientControlle
             updating: () => showLoader(),
             updated: () {
               hideLoader();
+              showSuccess('Dados do cliente atualizados com sucesso!');
               Navigator.of(context).pushNamedAndRemoveUntil(
                 '/home',
                 (route) => false,

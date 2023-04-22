@@ -11,6 +11,8 @@ enum ProductDataStatus {
   loaded,
   updating,
   updated,
+  deleting,
+  deleted,
   error,
 }
 

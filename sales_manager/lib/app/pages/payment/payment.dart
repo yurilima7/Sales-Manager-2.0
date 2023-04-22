@@ -76,6 +76,7 @@ class _PaymentState extends BaseState<Payment, PaymentController> {
             loading: () => showLoader(),
             paid: () {
               hideLoader();
+              showSuccess("Pagamento realizado com sucesso");
               Navigator.of(context).pushNamedAndRemoveUntil(
                 '/home',
                 (route) => false,
@@ -119,13 +120,13 @@ class _PaymentState extends BaseState<Payment, PaymentController> {
                         'Compra: ${DateFormat('dd/MM/y').format(DateTime.parse(sale!.day))}',
                         'Quantidade: ${sale!.quantity}',
                         'Unidade: ${sale!.price.currencyPTBR}',
-                        'Total: ${sale!.total.currencyPTBR}',
+                        'Total restante: ${sale!.total.currencyPTBR}',
                       ]),
                     ],
                   ),
 
                   const SizedBox(
-                    height: 8,
+                    height: 20,
                   ),
             
                   Form(

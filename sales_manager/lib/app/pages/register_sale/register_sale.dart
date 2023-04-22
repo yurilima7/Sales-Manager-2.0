@@ -29,6 +29,7 @@ class _RegisterSaleState extends BaseState<RegisterSale, RegisterSaleController>
   final _priceEC = TextEditingController();
   final _quantityEC = TextEditingController();
   DateTime _day = DateTime.now();
+  bool _isLoading = true;
 
   @override
   void onReady() {
@@ -70,10 +71,12 @@ class _RegisterSaleState extends BaseState<RegisterSale, RegisterSaleController>
             loading: () => showLoader(),
             loaded: () {
               hideLoader();
+              _isLoading = false;
             },
             registering: () => showLoader(),
             registered: () {
               hideLoader();
+              showSuccess('Venda realizada com sucesso!');
               Navigator.of(context).pushNamedAndRemoveUntil(
                 '/home',
                 (route) => false,
@@ -95,96 +98,100 @@ class _RegisterSaleState extends BaseState<RegisterSale, RegisterSaleController>
                 child: Padding(
                   padding: const EdgeInsets.all(20),
           
-                  child: LayoutBuilder(
-                    builder: (_, constraints) => SingleChildScrollView(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(minHeight: constraints.maxHeight),
-          
-                        child: IntrinsicHeight(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-  
-                            children: [
-          
-                              Form(
-                                key: _formKey,
-                                child: Column(
-                                  children: [
-                                    Input(
-                                      label: 'Produto',
-                                      hintText: 'Digite o nome do produto',
-                                      controller: _productNameEC,
-                                      validator:
-                                        Validatorless.required('Nome do produto obrigatório'),
-                                    ),
-          
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-          
-                                    Input(
-                                      label: 'Preço',
-                                      hintText:
-                                        'Digite o preço do produto',
-                                      controller: _priceEC,
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.digitsOnly,
-                                        CentavosInputFormatter(moeda: true),
-                                      ],
-                                      validator:
-                                        Validatorless.required('Preço do produto obrigatório'),
-                                    ),
-          
-                                    const SizedBox(
+                  child: Visibility(
+                    visible: !_isLoading,
+                    
+                    child: LayoutBuilder(
+                      builder: (_, constraints) => SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                            
+                          child: IntrinsicHeight(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                    
+                              children: [
+                            
+                                Form(
+                                  key: _formKey,
+                                  child: Column(
+                                    children: [
+                                      Input(
+                                        label: 'Produto',
+                                        hintText: 'Digite o nome do produto',
+                                        controller: _productNameEC,
+                                        validator:
+                                          Validatorless.required('Nome do produto obrigatório'),
+                                      ),
+                            
+                                      const SizedBox(
                                         height: 20,
-                                    ),
-  
-                                    Input(
-                                      label: 'Quantidade',
-                                      hintText:
-                                        'Digite quantidade vendida',
-                                      controller: _quantityEC,
-                                      validator:
-                                        Validatorless.required('Quantidade vendida obrigatória'),
-                                    ),
-          
-                                    const SizedBox(
-                                        height: 20,
-                                    ),
-
-                                    InsertDay(daySelect: _day, onDateChanged: (newData){
-                                      setState(() {
-                                        _day = newData;
-                                      });
-                                    }),
-
-                                    const SizedBox(
-                                        height: 20,
-                                    ),
-
-                                    SalesManagerButton(
-                                      label: 'Salvar',
-                                      onPressed: () {
-                                        final valid =
-                                          _formKey.currentState?.validate() 
-                                          ?? false;
-  
-                                        if (valid) {
-                                          controller.registerSale(
-                                            widget.clientModel,
-                                            state.user as UserModel,
-                                            _productNameEC.text,
-                                           UtilBrasilFields.converterMoedaParaDouble(_priceEC.text),
-                                            int.tryParse(_quantityEC.text) ?? 0,
-                                            _day.toString(),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  ],
+                                      ),
+                            
+                                      Input(
+                                        label: 'Preço',
+                                        hintText:
+                                          'Digite o preço do produto',
+                                        controller: _priceEC,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.digitsOnly,
+                                          CentavosInputFormatter(moeda: true),
+                                        ],
+                                        validator:
+                                          Validatorless.required('Preço do produto obrigatório'),
+                                      ),
+                            
+                                      const SizedBox(
+                                          height: 20,
+                                      ),
+                    
+                                      Input(
+                                        label: 'Quantidade',
+                                        hintText:
+                                          'Digite quantidade vendida',
+                                        controller: _quantityEC,
+                                        validator:
+                                          Validatorless.required('Quantidade vendida obrigatória'),
+                                      ),
+                            
+                                      const SizedBox(
+                                          height: 20,
+                                      ),
+                  
+                                      InsertDay(daySelect: _day, onDateChanged: (newData){
+                                        setState(() {
+                                          _day = newData;
+                                        });
+                                      }),
+                  
+                                      const SizedBox(
+                                          height: 20,
+                                      ),
+                  
+                                      SalesManagerButton(
+                                        label: 'Salvar',
+                                        onPressed: () {
+                                          final valid =
+                                            _formKey.currentState?.validate() 
+                                            ?? false;
+                    
+                                          if (valid) {
+                                            controller.registerSale(
+                                              widget.clientModel,
+                                              state.user as UserModel,
+                                              _productNameEC.text,
+                                             UtilBrasilFields.converterMoedaParaDouble(_priceEC.text),
+                                              int.tryParse(_quantityEC.text) ?? 0,
+                                              _day.toString(),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

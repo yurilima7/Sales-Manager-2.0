@@ -13,6 +13,8 @@ extension ProductDataStatusMatch on ProductDataStatus {
       required T Function() loaded,
       required T Function() updating,
       required T Function() updated,
+      required T Function() deleting,
+      required T Function() deleted,
       required T Function() error}) {
     final v = this;
     if (v == ProductDataStatus.initial) {
@@ -35,6 +37,14 @@ extension ProductDataStatusMatch on ProductDataStatus {
       return updated();
     }
 
+    if (v == ProductDataStatus.deleting) {
+      return deleting();
+    }
+
+    if (v == ProductDataStatus.deleted) {
+      return deleted();
+    }
+
     if (v == ProductDataStatus.error) {
       return error();
     }
@@ -50,6 +60,8 @@ extension ProductDataStatusMatch on ProductDataStatus {
       T Function()? loaded,
       T Function()? updating,
       T Function()? updated,
+      T Function()? deleting,
+      T Function()? deleted,
       T Function()? error}) {
     final v = this;
     if (v == ProductDataStatus.initial && initial != null) {
@@ -70,6 +82,14 @@ extension ProductDataStatusMatch on ProductDataStatus {
 
     if (v == ProductDataStatus.updated && updated != null) {
       return updated();
+    }
+
+    if (v == ProductDataStatus.deleting && deleting != null) {
+      return deleting();
+    }
+
+    if (v == ProductDataStatus.deleted && deleted != null) {
+      return deleted();
     }
 
     if (v == ProductDataStatus.error && error != null) {

@@ -58,6 +58,7 @@ class _AddAddressState extends BaseState<AddAddress, AddClientController> {
             registering: () => showLoader(),
             registered: () {
               hideLoader();
+              showSuccess('Cliente registrado com sucesso!');
               Navigator.of(context).pushNamedAndRemoveUntil(
                 '/home',
                 (route) => false,

@@ -44,7 +44,7 @@ class Input extends StatelessWidget {
           onSaved: onSaved,
           inputFormatters: inputFormatters,
         
-          style: context.textApp.textPrimary,
+          style: context.textApp.textPrimary.copyWith(color: Colors.black),
         
           decoration: InputDecoration(
             labelText: label,

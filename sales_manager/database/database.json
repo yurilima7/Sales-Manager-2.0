@@ -2,9 +2,9 @@
     "users": [
         {
             "id": 1,
-            "name": "Teste Valdo",
-            "email": "teste@gmail.com",
-            "password":"12341234"
+            "name": "Andre",
+            "email": "andre@gmail.com",
+            "password": "12341234"
         },
         {
             "id": 2,
@@ -23,16 +23,22 @@
             "name": "Santos Marconi",
             "email": "santosmarconi@gmail.com",
             "password": "12345678"
+        },
+        {
+            "id": 5,
+            "name": "Santiago",
+            "email": "santiago@gmail.com",
+            "password": "12341234"
         }
     ],
     "users_data": [
         {
             "id": 1,
-            "name": "Teste Valdo",
-            "email": "teste@gmail.com",
-            "total_vendido": 350.0,
-            "recebido": 50.0,
-            "receber": 300.0
+            "name": "Andre",
+            "email": "andre@gmail.com",
+            "total_vendido": 256.0,
+            "recebido": 76.0,
+            "receber": 180.0
         },
         {
             "id": 2,
@@ -48,14 +54,22 @@
             "name": "Bob",
             "email": "bobteste@gmail.com",
             "password": "12345678",
-            "total_vendido": 0.0,
+            "total_vendido": 40.0,
             "recebido": 0.0,
-            "receber": 0.0
+            "receber": 40.0
         },
         {
             "id": 4,
             "name": "Santos Marconi",
             "email": "santosmarconi@gmail.com",
+            "total_vendido": 0.0,
+            "recebido": 0.0,
+            "receber": 0.0
+        },
+        {
+            "id": 5,
+            "name": "Santiago",
+            "email": "santiago@gmail.com",
             "total_vendido": 0.0,
             "recebido": 0.0,
             "receber": 0.0
@@ -92,7 +106,7 @@
             "district": "Eugênio Coutinho",
             "street": "Rua 10, QD-18",
             "number": 20,
-            "due": 50.0,
+            "due": 30.0,
             "user_id": "1"
         },
         {
@@ -108,23 +122,43 @@
         },
         {
             "id": 5,
-            "name": "Josefina",
+            "name": "Josefina Santos",
             "phone": "(99) 95633-4232",
             "district": "Santa Monica",
             "street": "Rua dos elefantes",
             "number": 23,
-            "due": 100.0,
+            "due": 0.0,
             "user_id": "1"
         },
         {
             "id": 6,
-            "name": "Alberto",
+            "name": "Alberto Fontes",
             "phone": "(99) 98773-6453",
             "district": "Seriema",
             "street": "Rua das Flores",
             "number": 23,
             "due": 0.0,
             "user_id": "1"
+        },
+        {
+            "id": 7,
+            "name": "Marcos Almeida",
+            "phone": "(99) 99999-9999",
+            "district": "Bairro das alamedas",
+            "street": "Rua 31",
+            "number": 2,
+            "due": 40.0,
+            "user_id": "3"
+        },
+        {
+            "id": 8,
+            "name": "Raimunda",
+            "phone": "(99) 9999-9999",
+            "district": "Teso Duro",
+            "street": "Rua da Pedreira",
+            "number": 12,
+            "due": 0.0,
+            "user_id": "3"
         }
     ],
     "sale": [
@@ -164,19 +198,19 @@
             "price": 50.0,
             "quantity": 1,
             "day": "2023-03-22 00:00:00.000",
-            "total": 50.0,
+            "total": 30.0,
             "client_id": "3",
             "user_id": "1"
         },
         {
             "id": 5,
-            "product_name": "Saia",
-            "price": 50.0,
+            "product_name": "Bermuda",
+            "price": 20.0,
             "quantity": 2,
-            "day": "2023-04-20 00:00:00.000",
-            "total": 100.0,
-            "client_id": "5",
-            "user_id": "1"
+            "day": "2023-04-21 00:00:00.000",
+            "total": 40.0,
+            "client_id": "7",
+            "user_id": 3
         }
     ]
 }

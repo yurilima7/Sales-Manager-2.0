@@ -82,4 +82,44 @@ class ProductDataController extends Cubit<ProductDataState> {
       ));
     }
   }
+
+  Future<void> productDelete(
+    int id,
+    ClientModel client,
+    String productName,
+    double price,
+    int quantity,
+    double total,
+  ) async {
+    emit(state.copyWith(status: ProductDataStatus.deleting));
+
+    try {
+      final user = await _userRepository.loadUser();
+      final userData = await _userRepository.loadUserData(user.id);
+
+      _clientsRepository.updateDue(
+        client.id.toString(),
+        client.due - (price * quantity),
+      );
+
+      _userRepository.updateValuesUser(
+        userData.id,
+        userData.recebido,
+        userData.receber - (price * quantity),
+        userData.totalVendido - (price * quantity),
+      );
+
+      _salesRepository.deletePurchaseClient(id);
+
+      emit(state.copyWith(
+        status: ProductDataStatus.deleted,
+      ));
+    } catch (e, s) {
+      log('Erro ao deletar venda', error: e, stackTrace: s);
+      emit(state.copyWith(
+        status: ProductDataStatus.error,
+        errorMessage: 'Erro ao deletar venda',
+      ));
+    }
+  }
 }

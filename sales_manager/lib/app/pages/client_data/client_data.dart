@@ -48,6 +48,17 @@ class _ClientDataState extends BaseState<ClientData, ClientDataController> {
           iconSize: 20,
           color: context.colors.tertiary,
         ),
+
+        actions: [
+          IconButton(
+            onPressed: () => controller.deleteClient(client!),
+
+            icon: Image.asset(
+              'assets/images/delete.png',
+              height: 24,
+            ),
+          ),
+        ],
       ),
 
       body: BlocConsumer<ClientDataController, ClientDataState>(
@@ -58,6 +69,12 @@ class _ClientDataState extends BaseState<ClientData, ClientDataController> {
               hideLoader();
             },
             loading: () => showLoader(),
+            deleting: () => showLoader(),
+            deleted: () {
+              hideLoader();
+              showSuccess('Cliente deletado com sucesso!');
+              Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+            },
             error: () {
               _isLoading = false;
               hideLoader();

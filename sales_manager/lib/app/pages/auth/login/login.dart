@@ -60,7 +60,7 @@ class _LoginState extends BaseState<Login, LoginController> {
           child: Scaffold(
             body: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
         
                 child: LayoutBuilder(
                   builder: (_, constraints) => SingleChildScrollView(
@@ -70,6 +70,10 @@ class _LoginState extends BaseState<Login, LoginController> {
                       child: IntrinsicHeight(
                         child: Column(
                           children: [
+                            const SizedBox(
+                               height: 20,
+                            ),
+
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
         

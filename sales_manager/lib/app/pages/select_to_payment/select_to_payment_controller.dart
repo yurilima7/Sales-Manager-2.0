@@ -17,6 +17,8 @@ class SelectToPaymentController extends Cubit<SelectToPaymentState> {
     try {
       final purchases = await _salesRepository.loadPurchasesClient(id);
 
+      purchases.sort((product1, product2) => product2.day.compareTo(product1.day));
+
       emit(state.copyWith(
         status: SelectToPaymentStatus.loaded,
         sales: purchases,
