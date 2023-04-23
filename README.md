@@ -14,13 +14,6 @@
 * Visualizar dados dos clientes como endereço, telefone, compras e o total da divida
 * Registro de pagamentos dos clientes
 
-## 🎬 Demonstração da aplicação em GIFs
-![cadastro funcionando](sales_manager\assets\gifs\register.gif)
-![login funcionando](sales_manager\assets\gifs\login.gif)
-![cadastro de cliente funcionando](sales_manager\assets\gifs\AddClient.gif)
-![registro de venda funcionando](sales_manager\assets\gifs\AddVenda.gif)
-![exclusão de compras funcionando](sales_manager\assets\gifs\DelVenda.gif)
-
 ## :wrench: Tecnologias Utilizadas
 * Flutter
 * Dart
