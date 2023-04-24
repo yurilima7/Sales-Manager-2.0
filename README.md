@@ -1,7 +1,12 @@
 # Sales Manager
 ## :memo: Descrição do Projeto
-<p>O projeto Sales Manager tem como objetivo a reconstrução de uma aplicação mobile de mesmo nome, para realizar o gerenciamento de vendas da maneira mais simples possível e a prática de novos conceitos na implementação de um app utilizando flutter.</p>
-<p>Clique aqui (https://github.com/yurilima7/Sales-Manager) para acessar o projeto anterior.</p>
+<p>
+    O projeto Sales Manager tem como objetivo a reconstrução de uma aplicação mobile de mesmo nome que havia desenvolvido algum tempo atrás.<br>
+    Comparado ao outro projeto, fiz algumas modificações na interface da aplicação e no padrão de desenvolvimento utilizando bloc neste projeto.<br>
+    O app tem como foco realizar o gerenciamento de vendas de um vendendor da maneira mais simples e direta possível.
+</p>
+
+<p>Clique aqui -> https://github.com/yurilima7/Sales-Manager para acessar o projeto anterior.</p>
 
 ## :books: Funcionalidades
 * Sistema de Cadastro com E-Mail e Senha
@@ -37,8 +42,8 @@ Para executar corretamente esta aplicação você precisará:
 * Git e Node JS instalados
 * Flutter já configurado (de preferência com Flutter Version Manager)
 * Adicionar um arquivo .env com o endereço de ip da máquina utilizada, ex: backend_base_url=http://seuIP:8080
-* Configurar o Json Rest Server para simulação do backend
-* Configurado o Json Rest Server, navegar até a pasta databases e executar o comando jrs run no terminal
+* Instalação do Json Rest Server para simulação do backend: Link -> https://pub.dev/packages/json_rest_server
+* Para executar o Json Rest Server, navegar até a pasta database e executar o comando jrs run no terminal
 
 ## :memo: Licença
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes
