@@ -7,7 +7,6 @@ import 'package:sales_manager/app/pages/home/home_state.dart';
 import 'package:sales_manager/app/pages/home/widgets/add_form.dart';
 import 'package:sales_manager/app/pages/home/widgets/home_card.dart';
 import 'package:sales_manager/app/pages/home/widgets/user_card.dart';
-import 'package:shimmer/shimmer.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,8 +16,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends BaseState<Home, HomeController> {
-  bool _isLoading = true;
-  
   @override
   void onReady() {
     controller.load();
@@ -39,7 +36,6 @@ class _HomeState extends BaseState<Home, HomeController> {
             any: () => hideLoader(),
             loading: () => showLoader(),
             loaded: () {
-              _isLoading = false;
               hideLoader();
             },
             error: () {
@@ -62,78 +58,43 @@ class _HomeState extends BaseState<Home, HomeController> {
             child: SingleChildScrollView(
               child: Column(
                 children: [ 
-
-                  _isLoading 
-                    ? Shimmer.fromColors(
-                        enabled: _isLoading,
-                        baseColor: const Color(0xFFB280D2),
-                        highlightColor: const Color(0xFFF5F5F5),
-
-                        child: const UserCard(),
-                      )
-                      : UserCard(user: state.user),
+                  UserCard(user: state.user),
               
                   const SizedBox(
                      height: 60,
                   ),
               
-                  _isLoading 
-                    ? Shimmer.fromColors(
-                      enabled: _isLoading,
-                      baseColor: const Color(0xFFB280D2),
-                      highlightColor: const Color(0xFFF5F5F5),
-
-                      child: const AddForm(clients: [], sales: [],),
-                    ) 
-                    : AddForm(
-                        clients: state.clients ?? [],
-                        sales: state.sales ?? [],
-                      ),
+                  AddForm(
+                    clients: state.clients ?? [],
+                    sales: state.sales ?? [],
+                  ),
               
                   const SizedBox(
                     height: 60,
                   ),
 
-                  _isLoading 
-                    ? Shimmer.fromColors(
-                      enabled: _isLoading,
-                      baseColor: const Color(0xFFB280D2),
-                      highlightColor: const Color(0xFFF5F5F5),
-
-                      child: const HomeCard(title: '', subtitle: ''),
-                    ) 
-                    : 
-                    HomeCard(
-                      title: 'Clientes',
-                      subtitle: state.clients?.length.toString() ?? '',
-                      function: state.clients!.isNotEmpty ? () => Navigator.of(context).pushNamed(
-                        '/clients',
-                        arguments: {
-                          'clients': state.clients,
-                          'route': '/clientData',
-                        },
-                      ) : () => showInfo('Impossível acessar, não existem clientes cadastrados!'),
-                    ),
+                  HomeCard(
+                    title: 'Clientes',
+                    subtitle: state.clients?.length.toString() ?? '',
+                    function: state.clients!.isNotEmpty ? () => Navigator.of(context).pushNamed(
+                      '/clients',
+                      arguments: {
+                        'clients': state.clients,
+                        'route': '/clientData',
+                      },
+                    ) : () => showInfo('Impossível acessar, não existem clientes cadastrados!'),
+                  ),
               
                   const SizedBox(
                     height: 10,
                   ),
 
-                  _isLoading 
-                    ? Shimmer.fromColors(
-                      enabled: _isLoading,
-                      baseColor: const Color(0xFFB280D2),
-                      highlightColor: const Color(0xFFF5F5F5),
-
-                      child: const HomeCard(title: '', subtitle: '',),
-                    ) 
-                    : 
-                    HomeCard(
-                      title: 'Vendas',
-                      subtitle: state.sales?.length.toString() ?? '',
-                      function: state.sales!.isNotEmpty ? () => Navigator.of(context).pushNamed(
-                        '/sales',
-                        arguments: state.sales
+                  HomeCard(
+                    title: 'Vendas',
+                    subtitle: state.sales?.length.toString() ?? '',
+                    function: state.sales!.isNotEmpty ? () => Navigator.of(context).pushNamed(
+                      '/sales',
+                      arguments: state.sales
                     ) :  () => showInfo('Impossível acessar, não existem vendas realizadas!'),
                   ),
                 ],
